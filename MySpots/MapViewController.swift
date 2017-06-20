@@ -117,10 +117,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             self.placeInformationView?.setSelectedPlaceName(place.name)
             self.placeInformationView?.setSelectedAddress(place.formattedAddress!)
             
-            print("Place placeID \(place.placeID)")
-            print("Place attributions \(String(describing: place.attributions))")
-            print("Place category \(place.types)")
-            print("Place rating \(place.rating)")
+//            print("Place placeID \(place.placeID)")
+//            print("Place attributions \(String(describing: place.attributions))")
+//            print("Place category \(place.types)")
+//            print("Place rating \(place.rating)")
         })
         animateShowView()
     }
@@ -140,6 +140,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         marker.snippet = placeID
         marker.icon = GMSMarker.markerImage(with: color)
         marker.map = mapView
+        
+        // TODO set flag which is stored or not
+        marker.userData = "test"
+        
         return marker
     }
     
