@@ -47,7 +47,7 @@
         <!--Detail View Controller-->
         <scene sceneID="SgF-5y-Kjf">
             <objects>
-                <viewController id="Fqc-dP-6za" customClass="DetailViewController" customModule="MySpots" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="Fqc-dP-6za" customClass="DetailViewController" customModule="MySpots" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MwJ-ux-ECS"/>
                         <viewControllerLayoutGuide type="bottom" id="E6X-eD-Lh0"/>

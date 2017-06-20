@@ -1,6 +1,6 @@
 //
 //  DetailViewController.swift
-//  MySpotsPrototype
+//  MySpots
 //
 //  Created by Michinobu Nishimoto on 2017-06-19.
 //  Copyright © 2017 Michinobu Nishimoto. All rights reserved.
