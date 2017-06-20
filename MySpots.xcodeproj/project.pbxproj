@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		04F988DB02D8400CCF2E2EF6 /* libPods-MySpots.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62533FDED4F9A6C4817BEC32 /* libPods-MySpots.a */; };
 		745BFF8D1EF9D07500BA9BB5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 745BFF8C1EF9D07500BA9BB5 /* GoogleService-Info.plist */; };
+		74A916471EF9D9F100304902 /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74A916461EF9D9F100304902 /* APIKey.plist */; };
 		74EE18041EF9A39A0035A9CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EE18031EF9A39A0035A9CD /* AppDelegate.swift */; };
 		74EE18061EF9A39A0035A9CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EE18051EF9A39A0035A9CD /* ViewController.swift */; };
 		74EE18091EF9A39A0035A9CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74EE18071EF9A39A0035A9CD /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 		570C596ACF34025B4872E3A8 /* Pods-MySpots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySpots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MySpots/Pods-MySpots.debug.xcconfig"; sourceTree = "<group>"; };
 		62533FDED4F9A6C4817BEC32 /* libPods-MySpots.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MySpots.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		745BFF8C1EF9D07500BA9BB5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		74A916461EF9D9F100304902 /* APIKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKey.plist; sourceTree = "<group>"; };
 		74EE18001EF9A39A0035A9CD /* MySpots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MySpots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74EE18031EF9A39A0035A9CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74EE18051EF9A39A0035A9CD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				74EE180C1EF9A39A0035A9CD /* LaunchScreen.storyboard */,
 				74EE180F1EF9A39A0035A9CD /* Info.plist */,
 				745BFF8C1EF9D07500BA9BB5 /* GoogleService-Info.plist */,
+				74A916461EF9D9F100304902 /* APIKey.plist */,
 			);
 			path = MySpots;
 			sourceTree = "<group>";
@@ -207,9 +210,9 @@
 				AAA7587E1EF9CD7C000C56E1 /* PlaceInformation.xib in Resources */,
 				74EE180E1EF9A39A0035A9CD /* LaunchScreen.storyboard in Resources */,
 				74EE180B1EF9A39A0035A9CD /* Assets.xcassets in Resources */,
-				AAA758801EF9CEC9000C56E1 /* APIKey.plist in Resources */,
 				74EE18091EF9A39A0035A9CD /* Main.storyboard in Resources */,
 				AA1171881EF9C05D00844F3B /* Map.storyboard in Resources */,
+				74A916471EF9D9F100304902 /* APIKey.plist in Resources */,
 				745BFF8D1EF9D07500BA9BB5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,7 +28,7 @@ class ToppageCategory: NSObject{
         mySpotsCat.name = "My Spots"
         
         
-        //ここから先のデータをDatabaseでひっぱってくる！
+        //↓ここから先のデータをDatabaseでひっぱってくる！
         var folders = [Folder]()
         
         let folder1 = Folder()
@@ -37,8 +37,8 @@ class ToppageCategory: NSObject{
         folder1.imageName = "cafe1"
         folder1.spotsNum = 10
         
-//        self.ref.child("users").child(folder1.).setValue(["username": folder1.folderName])
-        self.ref.child("list").childByAutoId().setValue(folder1.folderName)
+        
+//        self.ref.child("list").childByAutoId().setValue(folder1.folderName)
 
         
         
