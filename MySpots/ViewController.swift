@@ -20,8 +20,8 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        topPageCategory = ToppageCategory().topPageCategories()
         
-        topPageCategory = ToppageCategory.topPageCategories()
         
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(CategoryCell.self,forCellWithReuseIdentifier: cellid)

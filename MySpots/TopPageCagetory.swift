@@ -20,7 +20,7 @@ class ToppageCategory: NSObject{
     var ref = Database.database().reference()
     
     //仮でデータを作っている(viewControllerから　SampleAppCategoriesが呼ばれている)
-    static func topPageCategories() -> [ToppageCategory]{
+    func topPageCategories() -> [ToppageCategory]{
         
         //1. Cateogry1
         
@@ -37,7 +37,10 @@ class ToppageCategory: NSObject{
         folder1.imageName = "cafe1"
         folder1.spotsNum = 10
         
-        self.ref.child("users").child(user!.uid).setValue(["username": folder1.folderName])
+//        self.ref.child("users").child(folder1.).setValue(["username": folder1.folderName])
+        self.ref.child("list").childByAutoId().setValue(folder1.folderName)
+
+        
         
         let folder2 = Folder()
         folder2.folderName = "SuperMaret"

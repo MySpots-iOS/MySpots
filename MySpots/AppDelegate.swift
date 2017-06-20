@@ -31,10 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window!.rootViewController = UINavigationController(rootViewController: topPageVC)
         
         // Google Maps API Key
-        if let APIKEY = KeyManager().getValue(key: "apiKey") as? String {
-            GMSServices.provideAPIKey(APIKEY)
-            GMSPlacesClient.provideAPIKey(APIKEY)
-        }
+//        if let APIKEY = KeyManager().getValue(key: "apiKey") as? String {
+//            GMSServices.provideAPIKey(APIKEY)
+//            GMSPlacesClient.provideAPIKey(APIKEY)
+//        }
    
         
         return true

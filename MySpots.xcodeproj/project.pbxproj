@@ -23,7 +23,6 @@
 		AAA758781EF9CC5E000C56E1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA758771EF9CC5E000C56E1 /* DetailViewController.swift */; };
 		AAA7587A1EF9CCD3000C56E1 /* PlaceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA758791EF9CCD3000C56E1 /* PlaceInformation.swift */; };
 		AAA7587E1EF9CD7C000C56E1 /* PlaceInformation.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA7587D1EF9CD7C000C56E1 /* PlaceInformation.xib */; };
-		AAA758801EF9CEC9000C56E1 /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAA7587F1EF9CEC9000C56E1 /* APIKey.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +46,6 @@
 		AAA758771EF9CC5E000C56E1 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		AAA758791EF9CCD3000C56E1 /* PlaceInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInformation.swift; sourceTree = "<group>"; };
 		AAA7587D1EF9CD7C000C56E1 /* PlaceInformation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceInformation.xib; sourceTree = "<group>"; };
-		AAA7587F1EF9CEC9000C56E1 /* APIKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKey.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +92,7 @@
 				74EE180A1EF9A39A0035A9CD /* Assets.xcassets */,
 				74EE180C1EF9A39A0035A9CD /* LaunchScreen.storyboard */,
 				74EE180F1EF9A39A0035A9CD /* Info.plist */,
-				AA1171901EF9C1C500844F3B /* APIKey.plist */,
 				745BFF8C1EF9D07500BA9BB5 /* GoogleService-Info.plist */,
-
 			);
 			path = MySpots;
 			sourceTree = "<group>";
