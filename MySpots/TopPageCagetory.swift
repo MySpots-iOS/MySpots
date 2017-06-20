@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ToppageCategory: NSObject{
     
@@ -16,7 +17,7 @@ class ToppageCategory: NSObject{
     
     //本番のデータここから呼ぶ
     
-    
+    var ref = Database.database().reference()
     
     //仮でデータを作っている(viewControllerから　SampleAppCategoriesが呼ばれている)
     static func topPageCategories() -> [ToppageCategory]{
@@ -36,6 +37,7 @@ class ToppageCategory: NSObject{
         folder1.imageName = "cafe1"
         folder1.spotsNum = 10
         
+        self.ref.child("users").child(user!.uid).setValue(["username": folder1.folderName])
         
         let folder2 = Folder()
         folder2.folderName = "SuperMaret"
