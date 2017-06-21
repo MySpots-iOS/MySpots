@@ -7,9 +7,9 @@
 //
 
 import UIKit
+import Firebase
 
 class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
-    
     
     var topPageCategory: ToppageCategory?{
         didSet{
@@ -24,6 +24,30 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        
+        var mySpotfolders = [Folder]()
+        let ref = Database.database().reference()
+        
+        //-------Bring Data from database-----
+        
+        
+        ref.observe(.childAdded, with: { (snapshot) in
+            
+            for folder in snapshot.children{
+                
+                print(folder)
+                
+                if let snp = folder as? DataSnapshot{
+                    let fld = makeFolder(folder: snp)
+                    mySpotfolders.append(fld)
+                    
+                    print("folder: \(mySpotfolders.count)")
+                }
+            }
+                        
+        })
+
         setUpViews()
     }
     
@@ -87,7 +111,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let count =  topPageCategory?.folders?.count{
+        if let count =  topPageCategory?.folders.count{
             return count
         }
         return 0
@@ -97,7 +121,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! MySpotCell
-        cell.folder = topPageCategory?.folders?[indexPath.item]
+        cell.folder = topPageCategory?.folders[indexPath.item]
         return cell
     }
     
@@ -109,6 +133,33 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
     }
     
+}
+
+func makeFolder(folder:DataSnapshot) -> Folder{
+    
+    let newFolder = Folder()
+    
+    print("make folder")
+    
+    let value = folder.value as? NSDictionary
+    
+    if let category = value?["category"]{
+        newFolder.category = category as? String
+    }
+    
+    if let folderName = value?["folderName"]{
+        newFolder.folderName = folderName as? String
+    }
+    
+    if let imageName = value?["imageName"]{
+        newFolder.imageName = imageName as? String
+    }
+    
+    if let spotsNum = value?["spotsNum"]{
+        newFolder.spotsNum = spotsNum as? Int
+    }
+    
+    return newFolder
 }
 
 

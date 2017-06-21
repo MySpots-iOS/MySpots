@@ -19,16 +19,18 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+            
+        topPageCategories = []
         
-        topPageCategories = ToppageCategory().topPageCategories()
+        let mySpotsCat = ToppageCategory.getMySpots()
+        let exploreCat = ToppageCategory.getExploreSpots()
         
-//        var mySpotsCat = ToppageCategory()
-//        var exploreCat = ToppageCategory()
-//        
-//        topPageCategories?.append(mySpotsCat)
-//        topPageCategories?.append(exploreCat)
-//        
         
+        topPageCategories?.append(mySpotsCat)
+        topPageCategories?.append(exploreCat)
+        
+        print("TopCat: \(mySpotsCat.folders.count)")
+
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(CategoryCell.self,forCellWithReuseIdentifier: cellid)
         view.addSubview(collectionView!)
@@ -47,8 +49,9 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
         
         if let count = topPageCategories?.count{
             return count
+        } else{
+            return 0
         }
-        return 0
     }
     
     
