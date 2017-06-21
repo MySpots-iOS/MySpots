@@ -171,6 +171,7 @@
                         <outlet property="placeHours" destination="2nd-K7-83W" id="bR3-1o-Yzp"/>
                         <outlet property="placeName" destination="WXO-2c-JDc" id="wjd-RZ-k9l"/>
                         <outlet property="placePhone" destination="jSd-XK-ExR" id="swQ-Dz-3YZ"/>
+                        <outlet property="placePhoto" destination="laA-LA-wrQ" id="oAI-0F-8kA"/>
                         <outlet property="placeWebsite" destination="RG7-wW-MEw" id="wh6-J2-56x"/>
                         <outlet property="toggleSaveIcon" destination="XcB-Gp-FLm" id="vg6-vJ-pIn"/>
                     </connections>

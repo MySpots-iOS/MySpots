@@ -13,8 +13,8 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var placeName: UILabel!
     @IBOutlet weak var toggleSaveIcon: UIImageView!
-    
     @IBOutlet weak var placeAddress: UILabel!
+    @IBOutlet weak var placePhoto: UIImageView!
     @IBOutlet weak var placeHours: UILabel!
     @IBOutlet weak var placePhone: UILabel!
     @IBOutlet weak var placeWebsite: UILabel!
@@ -50,6 +50,30 @@ class DetailViewController: UIViewController {
             self.placeAddress.text = place.formattedAddress
             self.placePhone.text = place.phoneNumber
             //self.placeWebsite.text = place.website
+        })
+        
+        placesClient.lookUpPhotos(forPlaceID: placeID, callback: { (photos, error) -> Void in
+            if let error = error {
+                // TODO: handle the error.
+                print("Error: \(error.localizedDescription)")
+            } else {
+                if let firstPhoto = photos?.results.first {
+                    self.loadImageForMetadata(photoMetadata: firstPhoto)
+                }
+            }
+        })
+    }
+    
+    func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
+        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
+            (photo, error) -> Void in
+            if let error = error {
+                // TODO: handle the error.
+                print("Error: \(error.localizedDescription)")
+            } else {
+                self.placePhoto.image = photo;
+                //self.attributionTextView.attributedText = photoMetadata.attributions;
+            }
         })
     }
     
