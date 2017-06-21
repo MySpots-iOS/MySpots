@@ -14,7 +14,7 @@
         <scene sceneID="DhG-Ou-UDZ">
             <objects>
                 <navigationController id="Djf-Hi-WCb" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RLn-vK-3qR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="RLn-vK-3qR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -83,7 +83,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7V-5Y-au8">
                                 <rect key="frame" x="16" y="154" width="343" height="42"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Direction"/>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="laA-LA-wrQ">
                                 <rect key="frame" x="16" y="204" width="215" height="128"/>
@@ -166,6 +166,14 @@
                             <constraint firstItem="E6X-eD-Lh0" firstAttribute="top" secondItem="VrG-eZ-LMq" secondAttribute="bottom" constant="521" id="ySv-U1-qFQ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="placeAddress" destination="VrG-eZ-LMq" id="uqG-90-5fi"/>
+                        <outlet property="placeHours" destination="2nd-K7-83W" id="bR3-1o-Yzp"/>
+                        <outlet property="placeName" destination="WXO-2c-JDc" id="wjd-RZ-k9l"/>
+                        <outlet property="placePhone" destination="jSd-XK-ExR" id="swQ-Dz-3YZ"/>
+                        <outlet property="placeWebsite" destination="RG7-wW-MEw" id="wh6-J2-56x"/>
+                        <outlet property="toggleSaveIcon" destination="XcB-Gp-FLm" id="vg6-vJ-pIn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g6X-W3-4I6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -7,15 +7,26 @@
 //
 
 import UIKit
+import GooglePlaces
 
 class DetailViewController: UIViewController {
     
-    var test: String? = nil
+    @IBOutlet weak var placeName: UILabel!
+    @IBOutlet weak var toggleSaveIcon: UIImageView!
+    
+    @IBOutlet weak var placeAddress: UILabel!
+    @IBOutlet weak var placeHours: UILabel!
+    @IBOutlet weak var placePhone: UILabel!
+    @IBOutlet weak var placeWebsite: UILabel!
+    
+    var placeID: String = ""
+    fileprivate var placesClient: GMSPlacesClient!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print(self.test)
         // Do any additional setup after loading the view.
+        placesClient = GMSPlacesClient.shared()
+        getDetailInformationFromID(self.placeID)
     }
     
     override func didReceiveMemoryWarning() {
@@ -23,15 +34,23 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    func getDetailInformationFromID(_ placeID: String) {
+        placesClient.lookUpPlaceID(placeID, callback: { (place, error) -> Void in
+            if let error = error {
+                print("lookup place id query error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let place = place else {
+                print("No place details for \(placeID)")
+                return
+            }
+            
+            self.placeName.text = place.name
+            self.placeAddress.text = place.formattedAddress
+            self.placePhone.text = place.phoneNumber
+            //self.placeWebsite.text = place.website
+        })
+    }
     
 }
