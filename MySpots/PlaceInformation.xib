@@ -29,6 +29,7 @@
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nEv-bI-xIg">
                     <rect key="frame" x="299" y="20" width="60" height="60"/>
+                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="Loc-cf-uoA"/>
                         <constraint firstAttribute="width" constant="60" id="aIN-zn-iYP"/>
@@ -36,6 +37,7 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Bla-ha-SOP">
                     <rect key="frame" x="16" y="54" width="70" height="26"/>
+                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="Ndd-a0-JKS"/>
                     </constraints>

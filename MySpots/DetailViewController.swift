@@ -25,6 +25,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.placeName.textColor = UIColor.mainDarkGreen()
         placesClient = GMSPlacesClient.shared()
         getDetailInformationFromID(self.placeID)
     }
@@ -45,11 +46,12 @@ class DetailViewController: UIViewController {
                 print("No place details for \(placeID)")
                 return
             }
+            //let test = GMSPlacesOpenNowStatus(rawValue: place.openNowStatus.rawValue)
             
             self.placeName.text = place.name
             self.placeAddress.text = place.formattedAddress
             self.placePhone.text = place.phoneNumber
-            //self.placeWebsite.text = place.website
+            self.placeWebsite.text = place.website?.absoluteString
         })
         
         placesClient.lookUpPhotos(forPlaceID: placeID, callback: { (photos, error) -> Void in

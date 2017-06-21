@@ -125,8 +125,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         })
         animateShowView()
     }
-    
-    
+
     /**
      Make marker on Google Map
      
@@ -158,13 +157,14 @@ extension MapViewController {
         mapInit()
         
         // TODO load locations function
-        makeShowListView()
-        makeInformationView()
         
         // TEST DATA
         markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), placeID: "ChIJAAAAAAAAAAARembxZUVcNEk", color: .black))
         markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), placeID: "ChIJAAAAAAAAAAARknLi-eNpMH8", color: .black))
         markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), placeID: "ChIJAAAAAAAAAAARdxDXMalu6mY", color: .black))
+        
+        makeShowListView()
+        makeInformationView()
     }
     
     override func didReceiveMemoryWarning() {
@@ -243,18 +243,23 @@ extension MapViewController {
             return
         }
         
+        // Set tap gesture
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(detailView(_:)))
         tapGesture.delegate = self as? UIGestureRecognizerDelegate
-        
-        generalInformation.addGestureRecognizer(tapGesture)
+        let tapImageGesture = UITapGestureRecognizer(target: self, action: #selector(tappedImage(_:)))
+        tapImageGesture.delegate = self as? UIGestureRecognizerDelegate
+        self.placeInformationView?.addGestureRecognizer(tapGesture)
+        self.placeInformationView?.distanceIcon.addGestureRecognizer(tapImageGesture)
         self.view.addSubview(generalInformation)
         
+        // Set constrains in manually
         generalInformation.translatesAutoresizingMaskIntoConstraints = false
         generalInformation.heightAnchor.constraint(equalToConstant: 100).isActive = true
         generalInformation.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         generalInformation.widthAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
         self.generalInfoBottomConstraints.append(generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 100))
         self.generalInfoBottomConstraints.append(generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0))
+        
         // Set default
         self.generalInfoBottomConstraints[0].isActive = true
     }
@@ -262,18 +267,18 @@ extension MapViewController {
     func makeShowListView() {
         showListView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
         showListView.sectionHeaderHeight = 44
-        
-        //fruits = ["Apple", "Watermelon", "Pineapple", "Banana", "Pear", "Kiwi", "Watermelon", "Pineapple", "Banana", "Pear", "Kiwi", "Pineapple", "Banana", "Pear", "Kiwi", "Watermelon", "Pineapple", "Banana", "Pear", "Kiwi"]
+        showListView.rowHeight = 100
         
         showListView.delegate = self
         showListView.dataSource = self
         
-        showListView.register(UITableViewCell.self, forCellReuseIdentifier: "test")
+        showListView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "customCell")
+        
         self.view.addSubview(showListView)
         
+        // Set constrains
         showListView.translatesAutoresizingMaskIntoConstraints = false
         showListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
-        //customTableView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor, constant: 0).isActive = true
         showListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
         showListView.widthAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
         
@@ -287,6 +292,10 @@ extension MapViewController {
         //set placeID
         vc.placeID = (self.placeInformationView?.gerGooglePlaceID())!
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func tappedImage(_ sender: UITapGestureRecognizer) {
+        print("image tapped")
     }
     
     /**
@@ -338,7 +347,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 3
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -361,9 +370,32 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "test", for: indexPath)
-        //cell.textLabel!.text = fruits[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
+        
+        placesClient.lookUpPlaceID(markers[indexPath.row].snippet!, callback: { (place, error) -> Void in
+            if let error = error {
+                print("lookup place id query error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let place = place else {
+                //print("No place details for \(placeID)")
+                return
+            }
+            
+            cell.placeName.text = place.name
+            cell.placeAddress.text = place.formattedAddress
+            
+        })
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("cell tapped: \(indexPath.row)")
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        //set placeID
+        vc.placeID = (self.markers[indexPath.row].snippet)!
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
