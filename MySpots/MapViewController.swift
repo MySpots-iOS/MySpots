@@ -24,6 +24,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     fileprivate var placeInformationView: PlaceInformation? = nil
     fileprivate var generalInformation: UIView? = nil
     fileprivate var generalInfoBottomConstraints: [NSLayoutConstraint] = []
+    fileprivate var showListView: UITableView!
+    fileprivate var showLists: UILabel!
+    fileprivate var showListViewHeightConstraints: [NSLayoutConstraint] = []
+    fileprivate var flag:Bool = false
     fileprivate var currentPlaceID: String = ""
     
     //TODO
@@ -155,7 +159,7 @@ extension MapViewController {
         mapInit()
         
         // TODO load locations function
-        
+        makeShowListView()
         makeInformationView()
         
         // TEST DATA
@@ -214,7 +218,7 @@ extension MapViewController {
         let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude, zoom: zoomLevel)
         mapView = GMSMapView.map(withFrame: view.bounds, camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
+        mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 44, right: 0)
         mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
         mapView.delegate = self
@@ -256,6 +260,29 @@ extension MapViewController {
         self.generalInfoBottomConstraints[0].isActive = true
     }
     
+    func makeShowListView() {
+        showListView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+        showListView.sectionHeaderHeight = 44
+        
+        //fruits = ["Apple", "Watermelon", "Pineapple", "Banana", "Pear", "Kiwi", "Watermelon", "Pineapple", "Banana", "Pear", "Kiwi", "Pineapple", "Banana", "Pear", "Kiwi", "Watermelon", "Pineapple", "Banana", "Pear", "Kiwi"]
+        
+        showListView.delegate = self
+        showListView.dataSource = self
+        
+        showListView.register(UITableViewCell.self, forCellReuseIdentifier: "test")
+        self.view.addSubview(showListView)
+        
+        showListView.translatesAutoresizingMaskIntoConstraints = false
+        showListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
+        //customTableView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor, constant: 0).isActive = true
+        showListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+        showListView.widthAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
+        
+        self.showListViewHeightConstraints.append(showListView.heightAnchor.constraint(equalToConstant: 44))
+        self.showListViewHeightConstraints.append(showListView.heightAnchor.constraint(equalToConstant: (self.view.bounds.height / 1.3)))
+        self.showListViewHeightConstraints[0].isActive = true
+    }
+    
     func detailView(_ sender: UITapGestureRecognizer) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         //set placeID
@@ -285,6 +312,59 @@ extension MapViewController {
         UIView.animate(withDuration: 0.5, animations: {
             self.view.layoutIfNeeded()
         })
+    }
+    
+    func tapToggleAction(_ sender: UITapGestureRecognizer) {
+        if flag {
+            self.showListViewHeightConstraints[1].isActive = false
+            self.showListViewHeightConstraints[0].isActive = true
+            showLists.text = "Show Lists"
+            flag = false
+        } else {
+            self.showListViewHeightConstraints[0].isActive = false
+            self.showListViewHeightConstraints[1].isActive = true
+            showLists.text = "Close"
+            flag = true
+        }
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+}
+
+extension MapViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 44))
+        headerView.backgroundColor = UIColor.white
+        
+        showLists = UILabel()
+        showLists.text = "Show Lists"
+        showLists.textAlignment = .center
+        showLists.sizeToFit()
+        showLists.center = headerView.center
+        showLists.textColor = UIColor.black
+        
+        headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapToggleAction(_:))))
+        headerView.addSubview(showLists)
+        
+        return headerView
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "test", for: indexPath)
+        //cell.textLabel!.text = fruits[indexPath.row]
+        return cell
     }
 }
 
