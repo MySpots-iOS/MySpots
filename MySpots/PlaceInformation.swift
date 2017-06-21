@@ -14,6 +14,8 @@ class PlaceInformation: UIView {
     @IBOutlet weak var addressName: UILabel!
     @IBOutlet weak var distanceIcon: UIImageView!
     
+    var placeID: String = ""
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         autoresizesSubviews = false
@@ -33,11 +35,19 @@ class PlaceInformation: UIView {
     }
     
     func setSelectedPlaceName(_ name:String) {
-        placeName.text = name
+        self.placeName.text = name
     }
     
     func setSelectedAddress(_ address: String) {
-        addressName.text = address
+        self.addressName.text = address
+    }
+    
+    func setGooglePlaceID(_ placeID: String) {
+        self.placeID = placeID
+    }
+    
+    func gerGooglePlaceID() -> String {
+        return self.placeID
     }
     
 }

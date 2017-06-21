@@ -28,7 +28,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     fileprivate var showLists: UILabel!
     fileprivate var showListViewHeightConstraints: [NSLayoutConstraint] = []
     fileprivate var flag:Bool = false
-    fileprivate var currentPlaceID: String = ""
     
     //TODO
     // marker variable that stored from database
@@ -122,7 +121,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             
             self.placeInformationView?.setSelectedPlaceName(place.name)
             self.placeInformationView?.setSelectedAddress(place.formattedAddress!)
-            self.currentPlaceID = placeID
+            self.placeInformationView?.setGooglePlaceID(placeID)
         })
         animateShowView()
     }
@@ -286,7 +285,7 @@ extension MapViewController {
     func detailView(_ sender: UITapGestureRecognizer) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         //set placeID
-        vc.test = self.currentPlaceID
+        vc.test = self.placeInformationView?.gerGooglePlaceID()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
