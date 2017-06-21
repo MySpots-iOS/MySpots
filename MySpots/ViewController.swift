@@ -19,7 +19,7 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+                
         topPageCategories = []
         
         let mySpotsCat = ToppageCategory.getMySpots()

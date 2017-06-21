@@ -9,25 +9,21 @@ class ToppageCategory: NSObject {
     
 //    var handle:DatabaseHandle?
     
-
-
+    
     static func getMySpots() -> ToppageCategory {
         
         let mySpotsCat = ToppageCategory()
         mySpotsCat.name = "My Spots"
         
-//        var mySpotfolders = [Folder]()
+        var mySpotfolders = [Folder]()
 //        let ref = Database.database().reference()
 //        
 //        //-------Bring Data from database-----
 //        
 //        
-//        ref.observe(.childAdded, with: { (snapshot) in
+//        ref.child("MySpotsFolder").observe(.value, with: { (snapshot) in
 //            
 //            for folder in snapshot.children{
-//                
-////                print((folder as! DataSnapshot).childSnapshot(forPath: "category"))
-//                print(folder)
 //                
 //                if let snp = folder as? DataSnapshot{
 //                    let fld = makeFolder(folder: snp)
@@ -40,7 +36,7 @@ class ToppageCategory: NSObject {
 //            mySpotsCat.folders = mySpotfolders
 //
 //        })
-
+//
 //        ref.child("MySpotsFolder").observeSingleEvent(of: .value, with: { (snapshot) in
 //
 //            for folder in snapshot.children{
@@ -48,6 +44,9 @@ class ToppageCategory: NSObject {
 //                print((folder as! DataSnapshot).childSnapshot(forPath: "category"))
 //                if let snp = folder as? DataSnapshot{
 //                    let fld = makeFolder(folder: snp)
+//                    
+//                    print("Folder made!: \(fld.folderName ?? "fail folder make")")
+//                    
 //                    mySpotfolders.append(fld)
 //                    
 //                    print("folder: \(mySpotfolders.count)")
@@ -61,6 +60,22 @@ class ToppageCategory: NSObject {
 //        }
 
         
+        let folder1 = Folder()
+        folder1.folderName = "Cafes"
+        folder1.category = "Food"
+        folder1.imageName = "cafe1"
+        folder1.spotsNum = 10
+        
+        let folder2 = Folder()
+        folder2.folderName = "SuperMaret"
+        folder2.category = "Food"
+        folder2.imageName = "cafe2"
+        folder2.spotsNum = 4
+                
+        mySpotfolders.append(folder1)
+        mySpotfolders.append(folder2)
+        mySpotsCat.folders = mySpotfolders
+
         print("folderCount: \(mySpotsCat.folders.count)")
 
 
@@ -68,22 +83,6 @@ class ToppageCategory: NSObject {
 
     }
 
-    
-//        let folder1 = Folder()
-//        folder1.folderName = "Cafes"
-//        folder1.category = "Food"
-//        folder1.imageName = "cafe1"
-//        folder1.spotsNum = 10
-//   
-//        let folder2 = Folder()
-//        folder2.folderName = "SuperMaret"
-//        folder2.category = "Food"
-//        folder2.imageName = "cafe2"
-//        folder2.spotsNum = 4
-//        
-//        folders.append(folder1)
-//        folders.append(folder2)
-        
 //        self.ref.child("list").childByAutoId().setValue(folder1.folderName)
 
         
@@ -112,32 +111,32 @@ class ToppageCategory: NSObject {
     
 }
 
-//func makeFolder(folder:DataSnapshot) -> Folder{
-//    
-//    let newFolder = Folder()
-//    
-//    print("make folder")
-//    
-//    let value = folder.value as? NSDictionary
-//    
-//    if let category = value?["category"]{
-//        newFolder.category = category as? String
-//    }
-//    
-//    if let folderName = value?["folderName"]{
-//        newFolder.folderName = folderName as? String
-//    }
-//    
-//    if let imageName = value?["imageName"]{
-//        newFolder.imageName = imageName as? String
-//    }
-//    
-//    if let spotsNum = value?["spotsNum"]{
-//        newFolder.spotsNum = spotsNum as? Int
-//    }
-//    
-//    return newFolder
-//}
+func makeFolder(folder:DataSnapshot) -> Folder{
+    
+    let newFolder = Folder()
+    
+    print("make folder: \(folder.value ?? "no value")")
+    
+    let value = folder.value as? NSDictionary
+    
+    if let category = value?["category"]{
+        newFolder.category = category as? String
+    }
+    
+    if let folderName = value?["folderName"]{
+        newFolder.folderName = folderName as? String
+    }
+    
+    if let imageName = value?["imageName"]{
+        newFolder.imageName = imageName as? String
+    }
+    
+    if let spotsNum = value?["spotsNum"]{
+        newFolder.spotsNum = spotsNum as? Int
+    }
+    
+    return newFolder
+}
 
 
 class Folder: NSObject {
@@ -148,7 +147,6 @@ class Folder: NSObject {
     var imageName: String?
     var spotsNum: Int?
 }
-
 
 
 class Spot:NSObject{
