@@ -13,15 +13,21 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
     
     private let cellid = "cellid"
     
-    var topPageCategory: [ToppageCategory]?
+    var topPageCategories: [ToppageCategory]?
     
     //Override UICollectionViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        topPageCategory = ToppageCategory().topPageCategories()
+        topPageCategories = ToppageCategory().topPageCategories()
         
+//        var mySpotsCat = ToppageCategory()
+//        var exploreCat = ToppageCategory()
+//        
+//        topPageCategories?.append(mySpotsCat)
+//        topPageCategories?.append(exploreCat)
+//        
         
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(CategoryCell.self,forCellWithReuseIdentifier: cellid)
@@ -33,13 +39,13 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! CategoryCell
         
         //for each cell, assign it to a ToppageCategory Class
-        cell.topPageCategory = topPageCategory?[indexPath.item]
+        cell.topPageCategory = topPageCategories?[indexPath.item]
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if let count = topPageCategory?.count{
+        if let count = topPageCategories?.count{
             return count
         }
         return 0

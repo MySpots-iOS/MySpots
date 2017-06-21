@@ -60,6 +60,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         return label
     }()
     
+    
     func setUpViews(){
         self.backgroundColor = UIColor.clear
         
@@ -118,6 +119,8 @@ class MySpotCell: UICollectionViewCell{
             if let name = folder?.folderName{
                 nameLabel.text = name
             }
+            
+            print("Foldername: \(folder?.folderName ?? "no foldername")")
             
             categoryLabel.text = folder?.category
             spotsLabel.text = "\(folder?.spotsNum ?? 0) spots"

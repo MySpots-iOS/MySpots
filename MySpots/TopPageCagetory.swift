@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ToppageCategory: NSObject{
+class ToppageCategory: NSObject {
     
     var name:String?
     var folders:[Folder]?
@@ -18,9 +18,11 @@ class ToppageCategory: NSObject{
     //本番のデータここから呼ぶ
     
     var ref = Database.database().reference()
+    var handler:DatabaseHandle?
     
     //仮でデータを作っている(viewControllerから　SampleAppCategoriesが呼ばれている)
     func topPageCategories() -> [ToppageCategory]{
+        
         
         //1. Cateogry1
         
@@ -28,30 +30,45 @@ class ToppageCategory: NSObject{
         mySpotsCat.name = "My Spots"
         
         
-        //↓ここから先のデータをDatabaseでひっぱってくる！
         var folders = [Folder]()
         
-        let folder1 = Folder()
-        folder1.folderName = "Cafes"
-        folder1.category = "Food"
-        folder1.imageName = "cafe1"
-        folder1.spotsNum = 10
+        //~~~~~~~ここから先のデータをDatabaseでひっぱってくる！
         
+        self.ref.child("MySpotsFolder").observeSingleEvent(of: .value, with: { (snapshot) in
+
+            for folder in snapshot.children{
+                
+//                print((folder as! DataSnapshot).childSnapshot(forPath: "category"))
+                if let snp = folder as? DataSnapshot{
+                    let fld = makeFolder(folder: snp)
+                    folders.append(fld)
+                }
+            }
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+
+        mySpotsCat.folders = folders
+
+    
+//        let folder1 = Folder()
+//        folder1.folderName = "Cafes"
+//        folder1.category = "Food"
+//        folder1.imageName = "cafe1"
+//        folder1.spotsNum = 10
+//   
+//        let folder2 = Folder()
+//        folder2.folderName = "SuperMaret"
+//        folder2.category = "Food"
+//        folder2.imageName = "cafe2"
+//        folder2.spotsNum = 4
+//        
+//        folders.append(folder1)
+//        folders.append(folder2)
         
 //        self.ref.child("list").childByAutoId().setValue(folder1.folderName)
 
-        
-        
-        let folder2 = Folder()
-        folder2.folderName = "SuperMaret"
-        folder2.category = "Food"
-        folder2.imageName = "cafe2"
-        folder2.spotsNum = 4
-        
-        folders.append(folder1)
-        folders.append(folder2)
-        
-        mySpotsCat.folders = folders
         
         //2. Cateogory2
         
@@ -75,6 +92,36 @@ class ToppageCategory: NSObject{
         
     }
     
+}
+
+func makeFolder(folder:DataSnapshot) -> Folder{
+    let newFolder = Folder()
+    
+    print("make folder")
+    
+    let value = folder.value as? NSDictionary
+    
+    if let category = value?["category"]{
+        newFolder.category = category as? String
+    }
+    
+    if let folderName = value?["folderName"]{
+        newFolder.folderName = folderName as? String
+    }
+    
+    if let imageName = value?["imageName"]{
+        newFolder.imageName = imageName as? String
+    }
+    
+    if let spotsNum = value?["spotsNum"]{
+        newFolder.spotsNum = spotsNum as? Int
+    }
+    
+    //            if let category = folder.childSnapshot(forPath: "category") as? String{
+    //                newFolder.category = category.value as? String
+    //            }
+    
+    return newFolder
 }
 
 
