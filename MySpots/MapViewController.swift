@@ -24,6 +24,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     fileprivate var placeInformationView: PlaceInformation? = nil
     fileprivate var generalInformation: UIView? = nil
     fileprivate var generalInfoBottomConstraints: [NSLayoutConstraint] = []
+    fileprivate var currentPlaceID: String = ""
     
     //TODO
     // marker variable that stored from database
@@ -92,6 +93,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         print("Executed: POI")
         print("You tapped at \(location.latitude), \(location.longitude)")
         setGeneralInformation(placeID)
+        tempMarker?.map = nil
         tempMarker = makeMarker(position: location, placeID: placeID, color: .black)
     }
     
@@ -116,11 +118,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             
             self.placeInformationView?.setSelectedPlaceName(place.name)
             self.placeInformationView?.setSelectedAddress(place.formattedAddress!)
-            
-//            print("Place placeID \(place.placeID)")
-//            print("Place attributions \(String(describing: place.attributions))")
-//            print("Place category \(place.types)")
-//            print("Place rating \(place.rating)")
+            self.currentPlaceID = placeID
         })
         animateShowView()
     }
@@ -260,7 +258,8 @@ extension MapViewController {
     
     func detailView(_ sender: UITapGestureRecognizer) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-        vc.test = "aaa"
+        //set placeID
+        vc.test = self.currentPlaceID
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
