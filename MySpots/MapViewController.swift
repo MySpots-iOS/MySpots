@@ -97,7 +97,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         print("You tapped at \(location.latitude), \(location.longitude)")
         setGeneralInformation(placeID)
         tempMarker?.map = nil
-        tempMarker = makeMarker(position: location, placeID: placeID, color: .black)
+        tempMarker = makeMarker(position: location, placeID: placeID, color: .black, saved: false)
     }
     
     /**
@@ -135,14 +135,19 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
      - color: Marker Color
      
      */
-    func makeMarker(position: CLLocationCoordinate2D, placeID: String, color: UIColor) -> GMSMarker {
+    func makeMarker(position: CLLocationCoordinate2D, placeID: String, color: UIColor, saved: Bool) -> GMSMarker {
         let marker = GMSMarker(position: position)
         marker.snippet = placeID
         marker.icon = GMSMarker.markerImage(with: color)
         marker.map = mapView
         
         // TODO set flag which is stored or not
-        marker.userData = "test"
+        if saved == true {
+            marker.userData = ["saved": true]
+        } else {
+            marker.userData = ["saved": false]
+        }
+        
         
         return marker
     }
@@ -159,9 +164,9 @@ extension MapViewController {
         // TODO load locations function
         
         // TEST DATA
-        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), placeID: "ChIJAAAAAAAAAAARembxZUVcNEk", color: .black))
-        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), placeID: "ChIJAAAAAAAAAAARknLi-eNpMH8", color: .black))
-        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), placeID: "ChIJAAAAAAAAAAARdxDXMalu6mY", color: .black))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), placeID: "ChIJAAAAAAAAAAARembxZUVcNEk", color: .black, saved: true))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), placeID: "ChIJAAAAAAAAAAARknLi-eNpMH8", color: .black, saved: true))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), placeID: "ChIJAAAAAAAAAAARdxDXMalu6mY", color: .black, saved: true))
         
         makeShowListView()
         makeInformationView()
@@ -371,7 +376,6 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
-        
         placesClient.lookUpPlaceID(markers[indexPath.row].snippet!, callback: { (place, error) -> Void in
             if let error = error {
                 print("lookup place id query error: \(error.localizedDescription)")
