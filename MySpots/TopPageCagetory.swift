@@ -11,7 +11,7 @@ class ToppageCategory: NSObject {
         
         let newFolder = Folder()
         
-        print("make folder: \(folder.value ?? "no value")")
+        //print("make folder: \(folder.value ?? "no value")")
         
         let value = folder.value as? NSDictionary
         
