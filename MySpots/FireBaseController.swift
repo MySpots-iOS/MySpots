@@ -12,7 +12,7 @@ import Firebase
 class FirebaseController {
     
     let ref = Database.database().reference()
-    let nc = NotificationCenter.default
+    let firebasePath: String = "MySpotsFolder"
     var mySpots: ToppageCategory = ToppageCategory()
     
     init() {
@@ -22,60 +22,27 @@ class FirebaseController {
     func firstInit() {
         mySpots.name = "My Spots"
         
-        self.ref.child("MySpotsFolder").observeSingleEvent(of: .value, with: { (snapshot) in
+        self.ref.child(firebasePath).observeSingleEvent(of: .value, with: { (snapshot) in
             for folder in snapshot.children {
                 if let snap = folder as? DataSnapshot {
                     let folder = self.mySpots.makeFolder(folder: snap)
                     self.mySpots.folders.append(folder)
                 }
             }
-            self.nc.post(name: Notification.Name(rawValue:"MyNotification"), object: nil)
+            
+        NotificationCenter.default.post(name: Notification.Name(rawValue:"FirebaseNotification"), object: nil)
+            
         }) { (error) in
             print(error.localizedDescription)
         }
     }
-    
-    
-//    func fetchingMySpots(completed: @escaping (ToppageCategory) -> Void){
-//        
-//        
-//        let ref = Database.database().reference()
-//        let mySpotsCat = ToppageCategory()
-//        mySpotsCat.name = "My Spots"
-//        
-//        
-//        ref.child("MySpotsFolder").observe(.value, with: { (snapshot) in
-//            
-//            for folder in snapshot.children {
-//                
-//                print((folder as! DataSnapshot).childSnapshot(forPath: "category"))
-//                if let snp = folder as? DataSnapshot{
-//                    let fld = self.makeFolder(folder: snp)
-//                    
-//                    
-//                    print("Folder made!: \(fld.folderName ?? "fail folder make")")
-//                    print("folder: \(mySpotsCat.folders.count)")
-//                    
-//                    mySpotsCat.folders.append(fld)
-//                    
-//                }
-//            }
-//            
-//            completed(mySpotsCat)
-//            
-//        }) { (error) in
-//            print(error.localizedDescription)
-//        }
-//        
-//    }
 
-    
     
    func getMySpots(mySpotsCat:ToppageCategory){
         
         mySpotsCat.name = "My Spots"
         
-        let ref = Database.database().reference()
+        //let ref = Database.database().reference()
         
         //-------Bring Data from database-----
         

@@ -11,35 +11,19 @@ import UIKit
 class TopPageViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     private let cellid = "cellid"
+    private let nc = NotificationCenter.default
     
     var topPageCategories: [ToppageCategory]?
     var fbController = FirebaseController()
-    let nc = NotificationCenter.default
     
     //Override UICollectionViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nc.addObserver(self, selector: #selector(self.update(notification:)), name: Notification.Name("MyNotification"), object: nil)
-        print("viewDidLoad")
-                
-        topPageCategories = []
-//        asyncFetchData()
         
-        //fbController.getMySpots(mySpotsCat: mySpotsCat)
+        nc.addObserver(self, selector: #selector(self.initCompleted(notification:)), name: Notification.Name("FirebaseNotification"), object: nil)
+        
         //fbController.getExploreSpots(exploreCat:exploreCat)
-        
-//        mySpotsCat.fetchingMySpots { (mySpotsCat) -> Void in
-//            print("success!!")
-//            print(mySpotsCat.folders)
-//        }
-    
-        
-//        let topcategory = ToppageCategory.fetchingMySpots { (folders) in
-//             print(folders)
-//        }
-//        
-        
         
         
         //self.topPageCategories?.append(mySpotsCat)
@@ -51,8 +35,16 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
         view.addSubview(collectionView!)
     }
     
-    func update(notification: Notification?) {
-        print("notification")
+    func initCompleted(notification: Notification?) {
+        self.topPageCategories?.append(fbController.mySpots)
+        refreshCollectionView()
+    }
+    
+    /**
+     If data changed, it must be called to update collection view
+    */
+    func refreshCollectionView() {
+        self.collectionView?.reloadData()
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -65,10 +57,9 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if let count = topPageCategories?.count{
+        if let count = topPageCategories?.count {
             return count
-        } else{
+        } else {
             return 0
         }
     }
