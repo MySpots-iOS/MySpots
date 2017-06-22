@@ -10,6 +10,7 @@
 		04F988DB02D8400CCF2E2EF6 /* libPods-MySpots.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62533FDED4F9A6C4817BEC32 /* libPods-MySpots.a */; };
 		745BFF8D1EF9D07500BA9BB5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 745BFF8C1EF9D07500BA9BB5 /* GoogleService-Info.plist */; };
 		74A916471EF9D9F100304902 /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74A916461EF9D9F100304902 /* APIKey.plist */; };
+		74E602571EFB5D5600292D3C /* FireBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E602561EFB5D5600292D3C /* FireBaseController.swift */; };
 		74EE18041EF9A39A0035A9CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EE18031EF9A39A0035A9CD /* AppDelegate.swift */; };
 		74EE18061EF9A39A0035A9CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EE18051EF9A39A0035A9CD /* ViewController.swift */; };
 		74EE18091EF9A39A0035A9CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74EE18071EF9A39A0035A9CD /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 		62533FDED4F9A6C4817BEC32 /* libPods-MySpots.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MySpots.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		745BFF8C1EF9D07500BA9BB5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		74A916461EF9D9F100304902 /* APIKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKey.plist; sourceTree = "<group>"; };
+		74E602561EFB5D5600292D3C /* FireBaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseController.swift; sourceTree = "<group>"; };
 		74EE18001EF9A39A0035A9CD /* MySpots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MySpots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74EE18031EF9A39A0035A9CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74EE18051EF9A39A0035A9CD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				74EE18161EF9A4470035A9CD /* TopPageCagetory.swift */,
+				74E602561EFB5D5600292D3C /* FireBaseController.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				74EE18171EF9A4470035A9CD /* TopPageCagetory.swift in Sources */,
 				AACB35DC1EFB5A6500EFAA41 /* CustomTableViewCell.swift in Sources */,
 				74EE18191EF9A48D0035A9CD /* CategoryCell.swift in Sources */,
+				74E602571EFB5D5600292D3C /* FireBaseController.swift in Sources */,
 				AA1171861EF9C01400844F3B /* UIColor+.swift in Sources */,
 				AA11718A1EF9C0AD00844F3B /* MapViewController.swift in Sources */,
 			);

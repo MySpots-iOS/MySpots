@@ -12,9 +12,13 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
     
     
     private let cellid = "cellid"
-    let mySpotsCat = ToppageCategory()
     
     var topPageCategories: [ToppageCategory]?
+    
+    var fbController = FirebaseController()
+
+    let mySpotsCat = ToppageCategory()
+    let exploreCat = ToppageCategory()
 
     
     //Override UICollectionViewController
@@ -23,16 +27,16 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
         super.viewDidLoad()
                 
         topPageCategories = []
-        asyncFetchData()
+//        asyncFetchData()
+        
+        fbController.getMySpots(mySpotsCat: mySpotsCat)
+        fbController.getExploreSpots(exploreCat:exploreCat)
         
 //        mySpotsCat.fetchingMySpots { (mySpotsCat) -> Void in
 //            print("success!!")
 //            print(mySpotsCat.folders)
 //        }
     
-//        let mySpotsCat = ToppageCategory.fetchingMySpots(completionHandler: (ToppageCategory) -> Void)
-        
-        print("getting my spots...")
         
 //        let topcategory = ToppageCategory.fetchingMySpots { (folders) in
 //             print(folders)
@@ -40,7 +44,6 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
 //        
         
         
-        let exploreCat = ToppageCategory.getExploreSpots()
         
         self.topPageCategories?.append(mySpotsCat)
         self.topPageCategories?.append(exploreCat)
@@ -51,16 +54,16 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
         view.addSubview(collectionView!)
     }
     
-    func asyncFetchData() {
-        DispatchQueue(label: "test.queue").async {
-            self.mySpotsCat.firstInit()
-            
-            DispatchQueue.main.async {
-                print("check")
-                self.collectionView?.reloadData()
-            }
-        }
-    }
+//    func asyncFetchData() {
+//        DispatchQueue(label: "test.queue").async {
+//            self.fbController.firstInit(self.mySpotsCat)
+//            
+//            DispatchQueue.main.async {
+//                print("check")
+//                self.collectionView?.reloadData()
+//            }
+//        }
+//    }
 
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
