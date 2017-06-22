@@ -44,7 +44,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         print("Executed: didtapmarker")
-        setGeneralInformation(marker.snippet!)
+        setGeneralInformation(marker.snippet!, userData: marker.userData!)
         return true
     }
     
@@ -95,9 +95,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     func mapView(_ mapView:GMSMapView, didTapPOIWithPlaceID placeID:String, name:String, location:CLLocationCoordinate2D) {
         print("Executed: POI")
         print("You tapped at \(location.latitude), \(location.longitude)")
-        setGeneralInformation(placeID)
         tempMarker?.map = nil
         tempMarker = makeMarker(position: location, placeID: placeID, color: .black, saved: false)
+        setGeneralInformation(placeID, userData: tempMarker?.userData!)
     }
     
     /**
@@ -107,7 +107,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
      - placeID: Place identifier
      
      */
-    func setGeneralInformation(_ placeID: String) {
+    func setGeneralInformation(_ placeID: String, userData: Any?) {
+        if let savedFlag = userData as? [String: Bool] {
+            if savedFlag["saved"]! == true {
+                self.placeInformationView?.setSavedIcon()
+            } else {
+                self.placeInformationView?.setUnSavedIcon()
+            }
+        }
         placesClient.lookUpPlaceID(placeID, callback: { (place, error) -> Void in
             if let error = error {
                 print("lookup place id query error: \(error.localizedDescription)")

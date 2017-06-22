@@ -50,4 +50,12 @@ class PlaceInformation: UIView {
         return self.placeID
     }
     
+    func setSavedIcon() {
+        self.distanceIcon.image = UIImage(named: "savedFolder")
+    }
+    
+    func setUnSavedIcon() {
+        self.distanceIcon.image = UIImage(named: "saveFolder")
+    }
+    
 }
