@@ -9,99 +9,64 @@
 import UIKit
 import Firebase
 
-class FirebaseController{
+class FirebaseController {
     
+    let ref = Database.database().reference()
+    let firebasePath: String = "MySpotsFolder"
+    var mySpots: ToppageCategory = ToppageCategory()
     
-    func fetchingMySpots(completed: @escaping (ToppageCategory) -> Void){
-        
-        
-        let ref = Database.database().reference()
-        let mySpotsCat = ToppageCategory()
-        mySpotsCat.name = "My Spots"
-        
-        
-        ref.child("MySpotsFolder").observe(.value, with: { (snapshot) in
-            
-            for folder in snapshot.children {
-                
-                print((folder as! DataSnapshot).childSnapshot(forPath: "category"))
-                if let snp = folder as? DataSnapshot{
-                    let fld = self.makeFolder(folder: snp)
-                    
-                    
-                    print("Folder made!: \(fld.folderName ?? "fail folder make")")
-                    print("folder: \(mySpotsCat.folders.count)")
-                    
-                    mySpotsCat.folders.append(fld)
-                    
-                }
-            }
-            
-            completed(mySpotsCat)
-            
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
+    init() {
+        firstInit()
     }
     
-    func firstInit(_ mySpotsCat:ToppageCategory) {
-        let ref = Database.database().reference()
-        mySpotsCat.name = "My Spots"
+    func firstInit() {
+        mySpots.name = "My Spots"
         
-        
-        ref.child("MySpotsFolder").observeSingleEvent(of: .value, with: { (snapshot) in
-            
+        self.ref.child(firebasePath).observeSingleEvent(of: .value, with: { (snapshot) in
             for folder in snapshot.children {
-                
-                print((folder as! DataSnapshot).childSnapshot(forPath: "category"))
-                if let snp = folder as? DataSnapshot{
-                    let fld = self.makeFolder(folder: snp)
-                    
-                    print("Folder made!: \(fld.folderName ?? "fail folder make")")
-                    print("folder: \(mySpotsCat.folders.count)")
-                    
-                    mySpotsCat.folders.append(fld)
-                    
-                    print("got data")
+                if let snap = folder as? DataSnapshot {
+                    let folder = self.mySpots.makeFolder(folder: snap)
+                    self.mySpots.folders.append(folder)
                 }
             }
+            
+        NotificationCenter.default.post(name: Notification.Name(rawValue:"FirebaseNotification"), object: nil)
+            
         }) { (error) in
             print(error.localizedDescription)
         }
     }
 
-    
     
    func getMySpots(mySpotsCat:ToppageCategory){
         
         mySpotsCat.name = "My Spots"
         
-        let ref = Database.database().reference()
+        //let ref = Database.database().reference()
         
         //-------Bring Data from database-----
         
-        ref.child("MySpotsFolder").observe(.value, with: { (snapshot) in
-            
-            for folder in snapshot.children {
-                
-                print((folder as! DataSnapshot).childSnapshot(forPath: "category"))
-                if folder is DataSnapshot{
-                    let fld = self.makeFolder(folder: folder as! DataSnapshot)
-                    
-
-                    print("Folder made!: \(fld.folderName ?? "fail folder make")")
-                    print("folder: \(mySpotsCat.folders.count)")
-                    
-                    mySpotsCat.folders.append(fld)
-                    
-                }
-            }
-            
-            
-        }) { (error) in
-            print(error.localizedDescription)
-        }
+//        ref.child("MySpotsFolder").observe(.value, with: { (snapshot) in
+//            
+//            for folder in snapshot.children {
+//                
+//                print((folder as! DataSnapshot).childSnapshot(forPath: "category"))
+//                if folder is DataSnapshot{
+//                    //let fld = self.makeFolder(folder: folder as! DataSnapshot)
+//                    
+//
+//                    print("Folder made!: \(fld.folderName ?? "fail folder make")")
+//                    print("folder: \(mySpotsCat.folders.count)")
+//                    
+//                    mySpotsCat.folders.append(fld)
+//                    
+//                }
+//            }
+//            
+//            
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
         
         
         //        let folder1 = Folder()
@@ -127,53 +92,22 @@ class FirebaseController{
     
     //2. Cateogory2
     
-    func getExploreSpots(exploreCat:ToppageCategory){
-        
-        exploreCat.name = "Expore"
-        
-        var exploreFolders = [Folder]()
-        
-        let exploreFolder1 = Folder()
-        exploreFolder1.folderName = "Hiking Area"
-        exploreFolder1.category = "Outdoor"
-        exploreFolder1.imageName = "hiking1"
-        exploreFolder1.spotsNum = 8
-        
-        exploreFolders.append(exploreFolder1)
-        
-        exploreCat.folders = exploreFolders
-        
-        
-    }
-
-
-
-func makeFolder(folder:DataSnapshot) -> Folder{
-    
-    let newFolder = Folder()
-    
-    print("make folder: \(folder.value ?? "no value")")
-    
-    let value = folder.value as? NSDictionary
-    
-    if let category = value?["category"]{
-        newFolder.category = category as? String
-    }
-    
-    if let folderName = value?["folderName"]{
-        newFolder.folderName = folderName as? String
-    }
-    
-    if let imageName = value?["imageName"]{
-        newFolder.imageName = imageName as? String
-    }
-    
-    if let spotsNum = value?["spotsNum"]{
-        newFolder.spotsNum = spotsNum as? Int
-    }
-    
-    return newFolder
-}
-
-    
+//    func getExploreSpots(exploreCat:ToppageCategory){
+//        
+//        exploreCat.name = "Expore"
+//        
+//        var exploreFolders = [Folder]()
+//        
+//        let exploreFolder1 = Folder()
+//        exploreFolder1.folderName = "Hiking Area"
+//        exploreFolder1.category = "Outdoor"
+//        exploreFolder1.imageName = "hiking1"
+//        exploreFolder1.spotsNum = 8
+//        
+//        exploreFolders.append(exploreFolder1)
+//        
+//        exploreCat.folders = exploreFolders
+//        
+//        
+//    }    
 }

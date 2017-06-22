@@ -62,6 +62,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="imageIcon" destination="JVD-0S-lKx" id="gxE-34-pJm"/>
                 <outlet property="placeAddress" destination="4x6-O9-fw4" id="TFe-Ng-MXb"/>
                 <outlet property="placeName" destination="x8Y-JY-gIy" id="jCO-74-Xk3"/>
             </connections>

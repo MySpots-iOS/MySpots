@@ -8,63 +8,42 @@
 
 import UIKit
 
-class TopPageViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
-    
+class TopPageViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     private let cellid = "cellid"
+    private let nc = NotificationCenter.default
     
-    var topPageCategories: [ToppageCategory]?
-    
+    var topPageCategories: [ToppageCategory]? = []
     var fbController = FirebaseController()
-
-    let mySpotsCat = ToppageCategory()
-    let exploreCat = ToppageCategory()
-
     
     //Override UICollectionViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        topPageCategories = []
-//        asyncFetchData()
         
-        fbController.getMySpots(mySpotsCat: mySpotsCat)
-        fbController.getExploreSpots(exploreCat:exploreCat)
+        //Set observer to watch database init when it finished
+        nc.addObserver(self, selector: #selector(self.initCompleted(notification:)), name: Notification.Name("FirebaseNotification"), object: nil)
         
-//        mySpotsCat.fetchingMySpots { (mySpotsCat) -> Void in
-//            print("success!!")
-//            print(mySpotsCat.folders)
-//        }
-    
+        //fbController.getExploreSpots(exploreCat:exploreCat)
         
-//        let topcategory = ToppageCategory.fetchingMySpots { (folders) in
-//             print(folders)
-//        }
-//        
-        
-        
-        
-        self.topPageCategories?.append(mySpotsCat)
-        self.topPageCategories?.append(exploreCat)
-        
-
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(CategoryCell.self,forCellWithReuseIdentifier: self.cellid)
         view.addSubview(collectionView!)
     }
     
-//    func asyncFetchData() {
-//        DispatchQueue(label: "test.queue").async {
-//            self.fbController.firstInit(self.mySpotsCat)
-//            
-//            DispatchQueue.main.async {
-//                print("check")
-//                self.collectionView?.reloadData()
-//            }
-//        }
-//    }
-
+    func initCompleted(notification: Notification?) {
+        self.topPageCategories?.append(fbController.mySpots)
+        // no longer to hold the observer
+        self.nc.removeObserver(self)
+        refreshCollectionView()
+    }
+    
+    /**
+     If data changed, it must be called to update collection view
+    */
+    func refreshCollectionView() {
+        self.collectionView?.reloadData()
+    }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! CategoryCell
@@ -76,10 +55,9 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if let count = topPageCategories?.count{
+        if let count = topPageCategories?.count {
             return count
-        } else{
+        } else {
             return 0
         }
     }

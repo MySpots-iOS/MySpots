@@ -12,11 +12,13 @@ class CustomTableViewCell: UITableViewCell {
 
     @IBOutlet weak var placeName: UILabel!
     @IBOutlet weak var placeAddress: UILabel!
+    @IBOutlet weak var imageIcon: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         self.placeName.textColor = UIColor.mainDarkGreen()
+        self.imageIcon = UIImageView(image: UIImage(named: "savedFolder"))
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
