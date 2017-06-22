@@ -8,29 +8,26 @@
 
 import UIKit
 
-class TopPageViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
-    
+class TopPageViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     private let cellid = "cellid"
     
     var topPageCategories: [ToppageCategory]?
-    
     var fbController = FirebaseController()
-
-    let mySpotsCat = ToppageCategory()
-    let exploreCat = ToppageCategory()
-
+    let nc = NotificationCenter.default
     
     //Override UICollectionViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        nc.addObserver(self, selector: #selector(self.update(notification:)), name: Notification.Name("MyNotification"), object: nil)
+        print("viewDidLoad")
                 
         topPageCategories = []
 //        asyncFetchData()
         
-        fbController.getMySpots(mySpotsCat: mySpotsCat)
-        fbController.getExploreSpots(exploreCat:exploreCat)
+        //fbController.getMySpots(mySpotsCat: mySpotsCat)
+        //fbController.getExploreSpots(exploreCat:exploreCat)
         
 //        mySpotsCat.fetchingMySpots { (mySpotsCat) -> Void in
 //            print("success!!")
@@ -45,8 +42,8 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
         
         
         
-        self.topPageCategories?.append(mySpotsCat)
-        self.topPageCategories?.append(exploreCat)
+        //self.topPageCategories?.append(mySpotsCat)
+        //self.topPageCategories?.append(exploreCat)
         
 
         collectionView?.backgroundColor = UIColor.white
@@ -54,17 +51,9 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
         view.addSubview(collectionView!)
     }
     
-//    func asyncFetchData() {
-//        DispatchQueue(label: "test.queue").async {
-//            self.fbController.firstInit(self.mySpotsCat)
-//            
-//            DispatchQueue.main.async {
-//                print("check")
-//                self.collectionView?.reloadData()
-//            }
-//        }
-//    }
-
+    func update(notification: Notification?) {
+        print("notification")
+    }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! CategoryCell
