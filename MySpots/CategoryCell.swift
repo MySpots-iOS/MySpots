@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
-    
+
     var topPageCategory: ToppageCategory?{
         didSet{
             if let name = topPageCategory?.name{
@@ -60,6 +61,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         return label
     }()
     
+    
     func setUpViews(){
         self.backgroundColor = UIColor.clear
         
@@ -86,7 +88,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let count =  topPageCategory?.folders?.count{
+        if let count =  topPageCategory?.folders.count{
             return count
         }
         return 0
@@ -96,7 +98,9 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! MySpotCell
-        cell.folder = topPageCategory?.folders?[indexPath.item]
+        
+        cell.folder = topPageCategory?.folders[indexPath.item]
+
         return cell
     }
     
@@ -110,14 +114,16 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     
 }
 
-
 class MySpotCell: UICollectionViewCell{
+
     
     var folder: Folder?{
         didSet{
             if let name = folder?.folderName{
                 nameLabel.text = name
             }
+            
+            print("Foldername: \(folder?.folderName ?? "no foldername")")
             
             categoryLabel.text = folder?.category
             spotsLabel.text = "\(folder?.spotsNum ?? 0) spots"
@@ -129,7 +135,7 @@ class MySpotCell: UICollectionViewCell{
     }
     
     //Add imageView
-    let imageView:UIImageView = {
+    var imageView:UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 16
@@ -137,7 +143,7 @@ class MySpotCell: UICollectionViewCell{
         return iv
     }()
     
-    let nameLabel: UILabel = {
+    var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Disney"
         label.font = .systemFont(ofSize: 14)
