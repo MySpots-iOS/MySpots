@@ -24,6 +24,8 @@
 		AAA758781EF9CC5E000C56E1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA758771EF9CC5E000C56E1 /* DetailViewController.swift */; };
 		AAA7587A1EF9CCD3000C56E1 /* PlaceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA758791EF9CCD3000C56E1 /* PlaceInformation.swift */; };
 		AAA7587E1EF9CD7C000C56E1 /* PlaceInformation.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA7587D1EF9CD7C000C56E1 /* PlaceInformation.xib */; };
+		AACB35DC1EFB5A6500EFAA41 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB35DB1EFB5A6500EFAA41 /* CustomTableViewCell.swift */; };
+		AACB35DE1EFB5A6F00EFAA41 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACB35DD1EFB5A6F00EFAA41 /* CustomTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		AAA758771EF9CC5E000C56E1 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		AAA758791EF9CCD3000C56E1 /* PlaceInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInformation.swift; sourceTree = "<group>"; };
 		AAA7587D1EF9CD7C000C56E1 /* PlaceInformation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceInformation.xib; sourceTree = "<group>"; };
+		AACB35DB1EFB5A6500EFAA41 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		AACB35DD1EFB5A6F00EFAA41 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,8 @@
 				AAA758771EF9CC5E000C56E1 /* DetailViewController.swift */,
 				AAA758791EF9CCD3000C56E1 /* PlaceInformation.swift */,
 				AAA7587D1EF9CD7C000C56E1 /* PlaceInformation.xib */,
+				AACB35DB1EFB5A6500EFAA41 /* CustomTableViewCell.swift */,
+				AACB35DD1EFB5A6F00EFAA41 /* CustomTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -213,6 +219,7 @@
 				74EE18091EF9A39A0035A9CD /* Main.storyboard in Resources */,
 				AA1171881EF9C05D00844F3B /* Map.storyboard in Resources */,
 				74A916471EF9D9F100304902 /* APIKey.plist in Resources */,
+				AACB35DE1EFB5A6F00EFAA41 /* CustomTableViewCell.xib in Resources */,
 				745BFF8D1EF9D07500BA9BB5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,6 +285,7 @@
 				74EE18041EF9A39A0035A9CD /* AppDelegate.swift in Sources */,
 				AAA7587A1EF9CCD3000C56E1 /* PlaceInformation.swift in Sources */,
 				74EE18171EF9A4470035A9CD /* TopPageCagetory.swift in Sources */,
+				AACB35DC1EFB5A6500EFAA41 /* CustomTableViewCell.swift in Sources */,
 				74EE18191EF9A48D0035A9CD /* CategoryCell.swift in Sources */,
 				AA1171861EF9C01400844F3B /* UIColor+.swift in Sources */,
 				AA11718A1EF9C0AD00844F3B /* MapViewController.swift in Sources */,

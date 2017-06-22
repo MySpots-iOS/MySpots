@@ -24,6 +24,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     fileprivate var placeInformationView: PlaceInformation? = nil
     fileprivate var generalInformation: UIView? = nil
     fileprivate var generalInfoBottomConstraints: [NSLayoutConstraint] = []
+    fileprivate var showListView: UITableView!
+    fileprivate var showLists: UILabel!
+    fileprivate var showListViewHeightConstraints: [NSLayoutConstraint] = []
+    fileprivate var flag:Bool = false
     
     //TODO
     // marker variable that stored from database
@@ -92,6 +96,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         print("Executed: POI")
         print("You tapped at \(location.latitude), \(location.longitude)")
         setGeneralInformation(placeID)
+        tempMarker?.map = nil
         tempMarker = makeMarker(position: location, placeID: placeID, color: .black)
     }
     
@@ -116,16 +121,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             
             self.placeInformationView?.setSelectedPlaceName(place.name)
             self.placeInformationView?.setSelectedAddress(place.formattedAddress!)
-            
-            print("Place placeID \(place.placeID)")
-            print("Place attributions \(String(describing: place.attributions))")
-            print("Place category \(place.types)")
-            print("Place rating \(place.rating)")
+            self.placeInformationView?.setGooglePlaceID(placeID)
         })
         animateShowView()
     }
-    
-    
+
     /**
      Make marker on Google Map
      
@@ -140,6 +140,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         marker.snippet = placeID
         marker.icon = GMSMarker.markerImage(with: color)
         marker.map = mapView
+        
+        // TODO set flag which is stored or not
+        marker.userData = "test"
+        
         return marker
     }
     
@@ -154,12 +158,13 @@ extension MapViewController {
         
         // TODO load locations function
         
-        makeInformationView()
-        
         // TEST DATA
         markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), placeID: "ChIJAAAAAAAAAAARembxZUVcNEk", color: .black))
         markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), placeID: "ChIJAAAAAAAAAAARknLi-eNpMH8", color: .black))
         markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), placeID: "ChIJAAAAAAAAAAARdxDXMalu6mY", color: .black))
+        
+        makeShowListView()
+        makeInformationView()
     }
     
     override func didReceiveMemoryWarning() {
@@ -212,7 +217,7 @@ extension MapViewController {
         let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude, zoom: zoomLevel)
         mapView = GMSMapView.map(withFrame: view.bounds, camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
+        mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 44, right: 0)
         mapView.settings.myLocationButton = true
         mapView.isMyLocationEnabled = true
         mapView.delegate = self
@@ -238,26 +243,59 @@ extension MapViewController {
             return
         }
         
+        // Set tap gesture
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(detailView(_:)))
         tapGesture.delegate = self as? UIGestureRecognizerDelegate
-        
-        generalInformation.addGestureRecognizer(tapGesture)
+        let tapImageGesture = UITapGestureRecognizer(target: self, action: #selector(tappedImage(_:)))
+        tapImageGesture.delegate = self as? UIGestureRecognizerDelegate
+        self.placeInformationView?.addGestureRecognizer(tapGesture)
+        self.placeInformationView?.distanceIcon.addGestureRecognizer(tapImageGesture)
         self.view.addSubview(generalInformation)
         
+        // Set constrains in manually
         generalInformation.translatesAutoresizingMaskIntoConstraints = false
         generalInformation.heightAnchor.constraint(equalToConstant: 100).isActive = true
         generalInformation.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         generalInformation.widthAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
         self.generalInfoBottomConstraints.append(generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 100))
         self.generalInfoBottomConstraints.append(generalInformation.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0))
+        
         // Set default
         self.generalInfoBottomConstraints[0].isActive = true
     }
     
+    func makeShowListView() {
+        showListView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+        showListView.sectionHeaderHeight = 44
+        showListView.rowHeight = 100
+        
+        showListView.delegate = self
+        showListView.dataSource = self
+        
+        showListView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "customCell")
+        
+        self.view.addSubview(showListView)
+        
+        // Set constrains
+        showListView.translatesAutoresizingMaskIntoConstraints = false
+        showListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
+        showListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
+        showListView.widthAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
+        
+        self.showListViewHeightConstraints.append(showListView.heightAnchor.constraint(equalToConstant: 44))
+        self.showListViewHeightConstraints.append(showListView.heightAnchor.constraint(equalToConstant: (self.view.bounds.height / 1.3)))
+        self.showListViewHeightConstraints[0].isActive = true
+    }
+    
     func detailView(_ sender: UITapGestureRecognizer) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-        vc.test = "aaa"
+        //set placeID
+        vc.placeID = (self.placeInformationView?.gerGooglePlaceID())!
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func tappedImage(_ sender: UITapGestureRecognizer) {
+        print("image tapped")
     }
     
     /**
@@ -282,6 +320,82 @@ extension MapViewController {
         UIView.animate(withDuration: 0.5, animations: {
             self.view.layoutIfNeeded()
         })
+    }
+    
+    func tapToggleAction(_ sender: UITapGestureRecognizer) {
+        if flag {
+            self.showListViewHeightConstraints[1].isActive = false
+            self.showListViewHeightConstraints[0].isActive = true
+            showLists.text = "Show Lists"
+            flag = false
+        } else {
+            self.showListViewHeightConstraints[0].isActive = false
+            self.showListViewHeightConstraints[1].isActive = true
+            showLists.text = "Close"
+            flag = true
+        }
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+}
+
+extension MapViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 44))
+        headerView.backgroundColor = UIColor.white
+        
+        showLists = UILabel()
+        showLists.text = "Show Lists"
+        showLists.textAlignment = .center
+        showLists.sizeToFit()
+        showLists.center = headerView.center
+        showLists.textColor = UIColor.black
+        
+        headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapToggleAction(_:))))
+        headerView.addSubview(showLists)
+        
+        return headerView
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
+        
+        placesClient.lookUpPlaceID(markers[indexPath.row].snippet!, callback: { (place, error) -> Void in
+            if let error = error {
+                print("lookup place id query error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let place = place else {
+                //print("No place details for \(placeID)")
+                return
+            }
+            
+            cell.placeName.text = place.name
+            cell.placeAddress.text = place.formattedAddress
+            
+        })
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("cell tapped: \(indexPath.row)")
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        //set placeID
+        vc.placeID = (self.markers[indexPath.row].snippet)!
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
