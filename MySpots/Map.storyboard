@@ -13,8 +13,8 @@
         <!--Navigation Controller-->
         <scene sceneID="DhG-Ou-UDZ">
             <objects>
-                <navigationController id="Djf-Hi-WCb" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="RLn-vK-3qR">
+                <navigationController storyboardIdentifier="map" id="Djf-Hi-WCb" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RLn-vK-3qR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
