@@ -111,8 +111,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         if let savedFlag = userData as? [String: Bool] {
             if savedFlag["saved"]! == true {
                 self.placeInformationView?.setSavedIcon()
+                self.placeInformationView?.saved = savedFlag["saved"]!
             } else {
                 self.placeInformationView?.setUnSavedIcon()
+                self.placeInformationView?.saved = savedFlag["saved"]!
             }
         }
         placesClient.lookUpPlaceID(placeID, callback: { (place, error) -> Void in
@@ -308,6 +310,8 @@ extension MapViewController {
     
     func tappedImage(_ sender: UITapGestureRecognizer) {
         print("image tapped")
+        //print(self.placeInformationView?.saved)
+        makeAlert()
     }
     
     /**
@@ -350,6 +354,68 @@ extension MapViewController {
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
         })
+    }
+    
+    func makeAlert() {
+        let alert = UIAlertController(title:"Save to Folder", message: "Select a folder to save your spot", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let action1 = UIAlertAction(title: "Beaches", style: UIAlertActionStyle.default, handler: {
+            (action: UIAlertAction!) in
+            print("アクション１をタップした時の処理")
+        })
+        
+        let action2 = UIAlertAction(title: "Cafes", style: UIAlertActionStyle.default, handler: {
+            (action: UIAlertAction!) in
+            print("アクション２をタップした時の処理")
+        })
+        
+        //The last one creates another dialog
+        
+        let action3 = UIAlertAction(title: "Create Folder", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) in
+            
+            let alert = UIAlertController(title: "Create Folder", message: "Type Folder Name", preferredStyle: .alert)
+            
+            // Submit button
+            let submitAction = UIAlertAction(title: "Submit", style: .default, handler: { (action) -> Void in
+                // Get 1st TextField's text
+                let textField = alert.textFields![0]
+                print(textField.text!)
+            })
+            
+            // Cancel button
+            let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in })
+            
+            // Add 1 textField and customize it
+            alert.addTextField { (textField: UITextField) in
+                textField.keyboardAppearance = .dark
+                textField.keyboardType = .default
+                textField.autocorrectionType = .default
+                textField.placeholder = "Type something here"
+                textField.clearButtonMode = .whileEditing
+            }
+            
+            // Add action buttons and present the Alert
+            alert.addAction(submitAction)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+            
+        })
+        
+        
+        
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {
+            (action: UIAlertAction!) in
+            print("キャンセルをタップした時の処理")
+        })
+        
+        
+        alert.addAction(action1)
+        alert.addAction(action2)
+        alert.addAction(action3)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
+        
     }
 }
 
