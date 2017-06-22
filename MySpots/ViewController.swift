@@ -11,9 +11,9 @@ import UIKit
 class TopPageViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     private let cellid = "cellid"
-    private let nc = NotificationCenter.default
+    let nc = NotificationCenter.default
     
-    var topPageCategories: [ToppageCategory]?
+    var topPageCategories: [ToppageCategory]? = []
     var fbController = FirebaseController()
     
     //Override UICollectionViewController
@@ -37,6 +37,8 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
     
     func initCompleted(notification: Notification?) {
         self.topPageCategories?.append(fbController.mySpots)
+        // no longer to hold the observer
+        self.nc.removeObserver(self)
         refreshCollectionView()
     }
     

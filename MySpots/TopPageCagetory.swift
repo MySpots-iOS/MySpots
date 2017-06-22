@@ -7,7 +7,7 @@ class ToppageCategory: NSObject {
     var name:String?
     var folders:[Folder] = []
     
-    func makeFolder(folder:DataSnapshot) -> Folder{
+    func makeFolder(folder:DataSnapshot) -> Folder {
         
         let newFolder = Folder()
         
@@ -15,19 +15,19 @@ class ToppageCategory: NSObject {
         
         let value = folder.value as? NSDictionary
         
-        if let category = value?["category"]{
+        if let category = value?["category"] {
             newFolder.category = category as? String
         }
         
-        if let folderName = value?["folderName"]{
+        if let folderName = value?["folderName"] {
             newFolder.folderName = folderName as? String
         }
         
-        if let imageName = value?["imageName"]{
+        if let imageName = value?["imageName"] {
             newFolder.imageName = imageName as? String
         }
         
-        if let spotsNum = value?["spotsNum"]{
+        if let spotsNum = value?["spotsNum"] {
             newFolder.spotsNum = spotsNum as? Int
         }
         
