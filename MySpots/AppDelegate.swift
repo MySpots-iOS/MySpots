@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
+        
+        AnalyticsConfiguration.shared().setAnalyticsCollectionEnabled(false)
+
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
