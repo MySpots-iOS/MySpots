@@ -11,7 +11,7 @@ import UIKit
 class TopPageViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     private let cellid = "cellid"
-    let nc = NotificationCenter.default
+    private let nc = NotificationCenter.default
     
     var topPageCategories: [ToppageCategory]? = []
     var fbController = FirebaseController()
@@ -21,15 +21,11 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Set observer to watch database init when it finished
         nc.addObserver(self, selector: #selector(self.initCompleted(notification:)), name: Notification.Name("FirebaseNotification"), object: nil)
         
         //fbController.getExploreSpots(exploreCat:exploreCat)
         
-        
-        //self.topPageCategories?.append(mySpotsCat)
-        //self.topPageCategories?.append(exploreCat)
-        
-
         collectionView?.backgroundColor = UIColor.white
         collectionView?.register(CategoryCell.self,forCellWithReuseIdentifier: self.cellid)
         view.addSubview(collectionView!)
