@@ -131,6 +131,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             self.placeInformationView?.setSelectedPlaceName(place.name)
             self.placeInformationView?.setSelectedAddress(place.formattedAddress!)
             self.placeInformationView?.setGooglePlaceID(placeID)
+            self.placeInformationView?.setPlaceRate(place.rating)
         })
         animateShowView()
     }

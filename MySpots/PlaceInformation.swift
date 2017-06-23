@@ -12,6 +12,7 @@ class PlaceInformation: UIView {
     
     @IBOutlet weak var placeName: UILabel!
     @IBOutlet weak var addressName: UILabel!
+    @IBOutlet weak var placeRating: UILabel!
     @IBOutlet weak var distanceIcon: UIImageView!
     
     var placeID: String = ""
@@ -41,6 +42,10 @@ class PlaceInformation: UIView {
     
     func setSelectedAddress(_ address: String) {
         self.addressName.text = address
+    }
+    
+    func setPlaceRate(_ rate: Float) {
+        self.placeRating.text = String(rate)
     }
     
     func setGooglePlaceID(_ placeID: String) {
