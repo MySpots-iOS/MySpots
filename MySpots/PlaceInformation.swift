@@ -52,7 +52,7 @@ class PlaceInformation: UIView {
         self.placeID = placeID
     }
     
-    func gerGooglePlaceID() -> String {
+    func getGooglePlaceID() -> String {
         return self.placeID
     }
     

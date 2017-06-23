@@ -305,7 +305,7 @@ extension MapViewController {
     func detailView(_ sender: UITapGestureRecognizer) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         //set placeID
-        vc.placeID = (self.placeInformationView?.gerGooglePlaceID())!
+        vc.placeID = (self.placeInformationView?.getGooglePlaceID())!
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
