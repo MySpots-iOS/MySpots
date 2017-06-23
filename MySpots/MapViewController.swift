@@ -44,7 +44,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         print("Executed: didtapmarker")
-        setGeneralInformation(marker.snippet!)
+        setGeneralInformation(marker.snippet!, userData: marker.userData!)
         return true
     }
     
@@ -95,9 +95,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     func mapView(_ mapView:GMSMapView, didTapPOIWithPlaceID placeID:String, name:String, location:CLLocationCoordinate2D) {
         print("Executed: POI")
         print("You tapped at \(location.latitude), \(location.longitude)")
-        setGeneralInformation(placeID)
         tempMarker?.map = nil
-        tempMarker = makeMarker(position: location, placeID: placeID, color: .black)
+        tempMarker = makeMarker(position: location, placeID: placeID, color: .black, saved: false)
+        setGeneralInformation(placeID, userData: tempMarker?.userData!)
     }
     
     /**
@@ -107,7 +107,16 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
      - placeID: Place identifier
      
      */
-    func setGeneralInformation(_ placeID: String) {
+    func setGeneralInformation(_ placeID: String, userData: Any?) {
+        if let savedFlag = userData as? [String: Bool] {
+            if savedFlag["saved"]! == true {
+                self.placeInformationView?.setSavedIcon()
+                self.placeInformationView?.saved = savedFlag["saved"]!
+            } else {
+                self.placeInformationView?.setUnSavedIcon()
+                self.placeInformationView?.saved = savedFlag["saved"]!
+            }
+        }
         placesClient.lookUpPlaceID(placeID, callback: { (place, error) -> Void in
             if let error = error {
                 print("lookup place id query error: \(error.localizedDescription)")
@@ -135,14 +144,19 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
      - color: Marker Color
      
      */
-    func makeMarker(position: CLLocationCoordinate2D, placeID: String, color: UIColor) -> GMSMarker {
+    func makeMarker(position: CLLocationCoordinate2D, placeID: String, color: UIColor, saved: Bool) -> GMSMarker {
         let marker = GMSMarker(position: position)
         marker.snippet = placeID
         marker.icon = GMSMarker.markerImage(with: color)
         marker.map = mapView
         
         // TODO set flag which is stored or not
-        marker.userData = "test"
+        if saved == true {
+            marker.userData = ["saved": true]
+        } else {
+            marker.userData = ["saved": false]
+        }
+        
         
         return marker
     }
@@ -159,9 +173,9 @@ extension MapViewController {
         // TODO load locations function
         
         // TEST DATA
-        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), placeID: "ChIJAAAAAAAAAAARembxZUVcNEk", color: .black))
-        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), placeID: "ChIJAAAAAAAAAAARknLi-eNpMH8", color: .black))
-        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), placeID: "ChIJAAAAAAAAAAARdxDXMalu6mY", color: .black))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), placeID: "ChIJAAAAAAAAAAARembxZUVcNEk", color: .black, saved: true))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), placeID: "ChIJAAAAAAAAAAARknLi-eNpMH8", color: .black, saved: true))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), placeID: "ChIJAAAAAAAAAAARdxDXMalu6mY", color: .black, saved: true))
         
         makeShowListView()
         makeInformationView()
@@ -296,6 +310,8 @@ extension MapViewController {
     
     func tappedImage(_ sender: UITapGestureRecognizer) {
         print("image tapped")
+        //print(self.placeInformationView?.saved)
+        makeAlert()
     }
     
     /**
@@ -339,6 +355,68 @@ extension MapViewController {
             self.view.layoutIfNeeded()
         })
     }
+    
+    func makeAlert() {
+        let alert = UIAlertController(title:"Save to Folder", message: "Select a folder to save your spot", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let action1 = UIAlertAction(title: "Beaches", style: UIAlertActionStyle.default, handler: {
+            (action: UIAlertAction!) in
+            print("アクション１をタップした時の処理")
+        })
+        
+        let action2 = UIAlertAction(title: "Cafes", style: UIAlertActionStyle.default, handler: {
+            (action: UIAlertAction!) in
+            print("アクション２をタップした時の処理")
+        })
+        
+        //The last one creates another dialog
+        
+        let action3 = UIAlertAction(title: "Create Folder", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) in
+            
+            let alert = UIAlertController(title: "Create Folder", message: "Type Folder Name", preferredStyle: .alert)
+            
+            // Submit button
+            let submitAction = UIAlertAction(title: "Submit", style: .default, handler: { (action) -> Void in
+                // Get 1st TextField's text
+                let textField = alert.textFields![0]
+                print(textField.text!)
+            })
+            
+            // Cancel button
+            let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in })
+            
+            // Add 1 textField and customize it
+            alert.addTextField { (textField: UITextField) in
+                textField.keyboardAppearance = .dark
+                textField.keyboardType = .default
+                textField.autocorrectionType = .default
+                textField.placeholder = "Type something here"
+                textField.clearButtonMode = .whileEditing
+            }
+            
+            // Add action buttons and present the Alert
+            alert.addAction(submitAction)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+            
+        })
+        
+        
+        
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {
+            (action: UIAlertAction!) in
+            print("キャンセルをタップした時の処理")
+        })
+        
+        
+        alert.addAction(action1)
+        alert.addAction(action2)
+        alert.addAction(action3)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
+        
+    }
 }
 
 extension MapViewController: UITableViewDelegate, UITableViewDataSource {
@@ -371,7 +449,6 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
-        
         placesClient.lookUpPlaceID(markers[indexPath.row].snippet!, callback: { (place, error) -> Void in
             if let error = error {
                 print("lookup place id query error: \(error.localizedDescription)")

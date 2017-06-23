@@ -15,6 +15,7 @@ class PlaceInformation: UIView {
     @IBOutlet weak var distanceIcon: UIImageView!
     
     var placeID: String = ""
+    var saved: Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,6 +49,18 @@ class PlaceInformation: UIView {
     
     func gerGooglePlaceID() -> String {
         return self.placeID
+    }
+    
+    func setSavedIcon() {
+        self.distanceIcon.image = UIImage(named: "savedFolder")
+    }
+    
+    func setUnSavedIcon() {
+        self.distanceIcon.image = UIImage(named: "saveFolder")
+    }
+    
+    func getSavedBool() -> Bool {
+        return self.saved
     }
     
 }

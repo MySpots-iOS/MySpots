@@ -27,14 +27,6 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nEv-bI-xIg">
-                    <rect key="frame" x="299" y="20" width="60" height="60"/>
-                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="Loc-cf-uoA"/>
-                        <constraint firstAttribute="width" constant="60" id="aIN-zn-iYP"/>
-                    </constraints>
-                </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Bla-ha-SOP">
                     <rect key="frame" x="16" y="54" width="70" height="26"/>
                     <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -48,6 +40,13 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nEv-bI-xIg">
+                    <rect key="frame" x="324" y="33" width="35" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="Loc-cf-uoA"/>
+                        <constraint firstAttribute="width" constant="35" id="aIN-zn-iYP"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -55,15 +54,15 @@
                 <constraint firstAttribute="bottom" secondItem="uLy-fS-wgg" secondAttribute="bottom" constant="22" id="5yt-qf-ItI"/>
                 <constraint firstItem="cmF-gA-OUI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="8Hh-0S-d5C"/>
                 <constraint firstAttribute="trailing" secondItem="nEv-bI-xIg" secondAttribute="trailing" constant="16" id="Ceg-Ej-mRl"/>
-                <constraint firstItem="nEv-bI-xIg" firstAttribute="leading" secondItem="cmF-gA-OUI" secondAttribute="trailing" constant="8" id="Gxf-Le-X8m"/>
-                <constraint firstAttribute="bottom" secondItem="nEv-bI-xIg" secondAttribute="bottom" constant="20" id="HO7-Yw-eo3"/>
-                <constraint firstItem="nEv-bI-xIg" firstAttribute="leading" secondItem="cmF-gA-OUI" secondAttribute="trailing" constant="8" id="Jon-X3-qx9"/>
+                <constraint firstItem="nEv-bI-xIg" firstAttribute="leading" secondItem="cmF-gA-OUI" secondAttribute="trailing" constant="33" id="Gxf-Le-X8m"/>
+                <constraint firstAttribute="bottom" secondItem="nEv-bI-xIg" secondAttribute="bottom" constant="32" id="HO7-Yw-eo3"/>
+                <constraint firstItem="nEv-bI-xIg" firstAttribute="leading" secondItem="cmF-gA-OUI" secondAttribute="trailing" constant="33" id="Jon-X3-qx9"/>
                 <constraint firstItem="uLy-fS-wgg" firstAttribute="leading" secondItem="Bla-ha-SOP" secondAttribute="trailing" constant="8" symbolic="YES" id="Xun-1p-uOB"/>
                 <constraint firstItem="Bla-ha-SOP" firstAttribute="leading" secondItem="cmF-gA-OUI" secondAttribute="leading" id="YcZ-46-oGH"/>
-                <constraint firstItem="nEv-bI-xIg" firstAttribute="leading" secondItem="uLy-fS-wgg" secondAttribute="trailing" constant="8" id="aCz-Ta-m6c"/>
+                <constraint firstItem="nEv-bI-xIg" firstAttribute="leading" secondItem="uLy-fS-wgg" secondAttribute="trailing" constant="33" id="aCz-Ta-m6c"/>
                 <constraint firstItem="Bla-ha-SOP" firstAttribute="top" secondItem="cmF-gA-OUI" secondAttribute="bottom" constant="8" symbolic="YES" id="abt-ga-XIg"/>
-                <constraint firstItem="Bla-ha-SOP" firstAttribute="bottom" secondItem="nEv-bI-xIg" secondAttribute="bottom" id="jaK-Ob-8V8"/>
-                <constraint firstItem="nEv-bI-xIg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="q3M-Cw-Hg4"/>
+                <constraint firstItem="Bla-ha-SOP" firstAttribute="bottom" secondItem="nEv-bI-xIg" secondAttribute="bottom" constant="12" id="jaK-Ob-8V8"/>
+                <constraint firstItem="nEv-bI-xIg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="33" id="q3M-Cw-Hg4"/>
                 <constraint firstItem="cmF-gA-OUI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="xGQ-M4-tRP"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

@@ -20,6 +20,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var placeWebsite: UILabel!
     
     var placeID: String = ""
+    var saved: Bool = false
     fileprivate var placesClient: GMSPlacesClient!
     
     override func viewDidLoad() {
