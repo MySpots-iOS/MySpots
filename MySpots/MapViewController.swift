@@ -463,6 +463,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.placeName.text = place.name
             cell.placeAddress.text = place.formattedAddress
+            cell.placeRating.text = String(place.rating)
             
         })
         return cell

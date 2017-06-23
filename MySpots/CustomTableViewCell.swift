@@ -13,6 +13,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var placeName: UILabel!
     @IBOutlet weak var placeAddress: UILabel!
     @IBOutlet weak var imageIcon: UIImageView!
+    @IBOutlet weak var placeRating: UILabel!
     var saved: Bool = false
     
     override func awakeFromNib() {
