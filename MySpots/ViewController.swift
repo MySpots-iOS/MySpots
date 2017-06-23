@@ -54,7 +54,7 @@ extension ViewController {
     func initCollectionView() {
         let flowLayout = UICollectionViewFlowLayout()
         //flowLayout.scrollDirection = .horizontal
-        flowLayout.itemSize = CGSize(width:100, height:230)
+        flowLayout.itemSize = CGSize(width:100, height:172)
         flowLayout.sectionInset = UIEdgeInsetsMake(15, 14, 15, 14)
         flowLayout.headerReferenceSize = CGSize(width:100, height:50)
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: flowLayout)
@@ -155,7 +155,7 @@ extension ViewController {
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 230)
+        return CGSize(width: view.frame.width, height: 200)
     }
     
 }
