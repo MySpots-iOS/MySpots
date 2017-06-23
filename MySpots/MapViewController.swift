@@ -96,7 +96,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         print("Executed: POI")
         print("You tapped at \(location.latitude), \(location.longitude)")
         tempMarker?.map = nil
-        tempMarker = makeMarker(title: "0", position: location, placeID: placeID, color: .black, saved: false)
+        tempMarker = makeMarker(markerID: "nil", position: location, placeID: placeID, color: .black, saved: false)
         setGeneralInformation(placeID, userData: tempMarker?.userData!)
     }
     
@@ -145,9 +145,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
      - color: Marker Color
      
      */
-    func makeMarker(title: String, position: CLLocationCoordinate2D, placeID: String, color: UIColor, saved: Bool) -> GMSMarker {
+    func makeMarker(markerID: String, position: CLLocationCoordinate2D, placeID: String, color: UIColor, saved: Bool) -> GMSMarker {
         let marker = GMSMarker(position: position)
-        marker.title = title
+        marker.title = markerID
         marker.snippet = placeID
         marker.icon = GMSMarker.markerImage(with: color)
         marker.map = mapView
@@ -175,9 +175,9 @@ extension MapViewController {
         // TODO load locations function
         
         // TEST DATA
-        markers.append(makeMarker(title: "1", position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), placeID: "ChIJAAAAAAAAAAARembxZUVcNEk", color: .black, saved: true))
-        markers.append(makeMarker(title: "2", position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), placeID: "ChIJAAAAAAAAAAARknLi-eNpMH8", color: .black, saved: true))
-        markers.append(makeMarker(title: "3", position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), placeID: "ChIJAAAAAAAAAAARdxDXMalu6mY", color: .black, saved: true))
+        markers.append(makeMarker(markerID: "0", position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), placeID: "ChIJAAAAAAAAAAARembxZUVcNEk", color: .black, saved: true))
+        markers.append(makeMarker(markerID: "1", position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), placeID: "ChIJAAAAAAAAAAARknLi-eNpMH8", color: .black, saved: true))
+        markers.append(makeMarker(markerID: "2", position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), placeID: "ChIJAAAAAAAAAAARdxDXMalu6mY", color: .black, saved: true))
         
         makeShowListView()
         makeInformationView()
