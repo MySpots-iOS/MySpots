@@ -18,6 +18,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var placeHours: UILabel!
     @IBOutlet weak var placePhone: UILabel!
     @IBOutlet weak var placeWebsite: UILabel!
+    @IBOutlet weak var placeRating: UILabel!
     
     var placeID: String = ""
     var saved: Bool = false
@@ -50,6 +51,7 @@ class DetailViewController: UIViewController {
             //let test = GMSPlacesOpenNowStatus(rawValue: place.openNowStatus.rawValue)
             
             self.placeName.text = place.name
+            self.placeRating.text = String(place.rating)
             self.placeAddress.text = place.formattedAddress
             self.placePhone.text = place.phoneNumber
             self.placeWebsite.text = place.website?.absoluteString
