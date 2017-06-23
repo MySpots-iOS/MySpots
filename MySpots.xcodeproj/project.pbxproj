@@ -12,7 +12,7 @@
 		74A916471EF9D9F100304902 /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74A916461EF9D9F100304902 /* APIKey.plist */; };
 		74E602571EFB5D5600292D3C /* FireBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E602561EFB5D5600292D3C /* FireBaseController.swift */; };
 		74EE18041EF9A39A0035A9CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EE18031EF9A39A0035A9CD /* AppDelegate.swift */; };
-		74EE18061EF9A39A0035A9CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EE18051EF9A39A0035A9CD /* ViewController.swift */; };
+		74EE18061EF9A39A0035A9CD /* devViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EE18051EF9A39A0035A9CD /* devViewController.swift */; };
 		74EE18091EF9A39A0035A9CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74EE18071EF9A39A0035A9CD /* Main.storyboard */; };
 		74EE180B1EF9A39A0035A9CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74EE180A1EF9A39A0035A9CD /* Assets.xcassets */; };
 		74EE180E1EF9A39A0035A9CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74EE180C1EF9A39A0035A9CD /* LaunchScreen.storyboard */; };
@@ -27,6 +27,8 @@
 		AAA7587E1EF9CD7C000C56E1 /* PlaceInformation.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA7587D1EF9CD7C000C56E1 /* PlaceInformation.xib */; };
 		AACB35DC1EFB5A6500EFAA41 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB35DB1EFB5A6500EFAA41 /* CustomTableViewCell.swift */; };
 		AACB35DE1EFB5A6F00EFAA41 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACB35DD1EFB5A6F00EFAA41 /* CustomTableViewCell.xib */; };
+		AAD756A21EFC9A2900CF1B1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD756A11EFC9A2900CF1B1D /* ViewController.swift */; };
+		AAD756A41EFCA05E00CF1B1D /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD756A31EFCA05E00CF1B1D /* CustomCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +40,7 @@
 		74E602561EFB5D5600292D3C /* FireBaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseController.swift; sourceTree = "<group>"; };
 		74EE18001EF9A39A0035A9CD /* MySpots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MySpots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74EE18031EF9A39A0035A9CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		74EE18051EF9A39A0035A9CD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		74EE18051EF9A39A0035A9CD /* devViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = devViewController.swift; sourceTree = "<group>"; };
 		74EE18081EF9A39A0035A9CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		74EE180A1EF9A39A0035A9CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74EE180D1EF9A39A0035A9CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -54,6 +56,8 @@
 		AAA7587D1EF9CD7C000C56E1 /* PlaceInformation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceInformation.xib; sourceTree = "<group>"; };
 		AACB35DB1EFB5A6500EFAA41 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		AACB35DD1EFB5A6F00EFAA41 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
+		AAD756A11EFC9A2900CF1B1D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AAD756A31EFCA05E00CF1B1D /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,10 +93,12 @@
 		74EE18021EF9A39A0035A9CD /* MySpots */ = {
 			isa = PBXGroup;
 			children = (
-				74EE18151EF9A4280035A9CD /* Model */,
 				74EE18031EF9A39A0035A9CD /* AppDelegate.swift */,
-				74EE18051EF9A39A0035A9CD /* ViewController.swift */,
+				AAD756A11EFC9A2900CF1B1D /* ViewController.swift */,
+				AAD756A31EFCA05E00CF1B1D /* CustomCollectionViewCell.swift */,
+				74EE18051EF9A39A0035A9CD /* devViewController.swift */,
 				74EE18181EF9A48D0035A9CD /* CategoryCell.swift */,
+				74EE18151EF9A4280035A9CD /* Model */,
 				74EE18071EF9A39A0035A9CD /* Main.storyboard */,
 				AA1171871EF9C05D00844F3B /* Map.storyboard */,
 				AA11718F1EF9C19D00844F3B /* View */,
@@ -283,12 +289,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAA758781EF9CC5E000C56E1 /* DetailViewController.swift in Sources */,
-				74EE18061EF9A39A0035A9CD /* ViewController.swift in Sources */,
+				74EE18061EF9A39A0035A9CD /* devViewController.swift in Sources */,
 				AA1171831EF9BFE500844F3B /* KeyManager.swift in Sources */,
 				74EE18041EF9A39A0035A9CD /* AppDelegate.swift in Sources */,
 				AAA7587A1EF9CCD3000C56E1 /* PlaceInformation.swift in Sources */,
 				74EE18171EF9A4470035A9CD /* TopPageCagetory.swift in Sources */,
+				AAD756A21EFC9A2900CF1B1D /* ViewController.swift in Sources */,
 				AACB35DC1EFB5A6500EFAA41 /* CustomTableViewCell.swift in Sources */,
+				AAD756A41EFCA05E00CF1B1D /* CustomCollectionViewCell.swift in Sources */,
 				74EE18191EF9A48D0035A9CD /* CategoryCell.swift in Sources */,
 				74E602571EFB5D5600292D3C /* FireBaseController.swift in Sources */,
 				AA1171861EF9C01400844F3B /* UIColor+.swift in Sources */,
