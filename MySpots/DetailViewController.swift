@@ -19,6 +19,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var placePhone: UILabel!
     @IBOutlet weak var placeWebsite: UILabel!
     @IBOutlet weak var placeRating: UILabel!
+    @IBOutlet weak var directionButton: UIButton!
     
     var placeID: String = ""
     var saved: Bool = false
@@ -28,8 +29,15 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.placeName.textColor = UIColor.mainDarkGreen()
+        self.directionButton.backgroundColor = UIColor.mainDarkGreen()
         placesClient = GMSPlacesClient.shared()
         getDetailInformationFromID(self.placeID)
+        
+        if saved == true {
+            setSavedIcon()
+        } else {
+            setUnSavedIcon()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -80,6 +88,14 @@ class DetailViewController: UIViewController {
                 //self.attributionTextView.attributedText = photoMetadata.attributions;
             }
         })
+    }
+    
+    func setSavedIcon() {
+        self.toggleSaveIcon.image = UIImage(named: "savedFolder")
+    }
+    
+    func setUnSavedIcon() {
+        self.toggleSaveIcon.image = UIImage(named: "saveFolder")
     }
     
 }

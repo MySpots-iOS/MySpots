@@ -306,6 +306,7 @@ extension MapViewController {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         //set placeID
         vc.placeID = (self.placeInformationView?.getGooglePlaceID())!
+        vc.saved = (self.placeInformationView?.getSavedBool())!
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
