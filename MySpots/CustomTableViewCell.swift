@@ -14,7 +14,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var placeAddress: UILabel!
     @IBOutlet weak var imageIcon: UIImageView!
     @IBOutlet weak var placeRating: UILabel!
-    var saved: Bool = false
+    var saved: Bool = true
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,9 +22,6 @@ class CustomTableViewCell: UITableViewCell {
         self.placeName.textColor = UIColor.mainDarkGreen()
         self.imageIcon.isUserInteractionEnabled = true
         self.imageIcon.image = UIImage(named: "savedFolder")
-        let tapImageGesture = UITapGestureRecognizer(target: self, action: #selector(tappedImage(_:)))
-        tapImageGesture.delegate = self
-        self.imageIcon.addGestureRecognizer(tapImageGesture)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -39,9 +36,5 @@ class CustomTableViewCell: UITableViewCell {
     
     func getSpotdSaved() -> Bool {
         return self.saved
-    }
-    
-    func tappedImage(_ sender: UITapGestureRecognizer) {
-        print("image tap")
     }
 }

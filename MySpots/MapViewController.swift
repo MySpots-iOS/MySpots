@@ -96,7 +96,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         print("Executed: POI")
         print("You tapped at \(location.latitude), \(location.longitude)")
         tempMarker?.map = nil
-        tempMarker = makeMarker(markerID: "nil", position: location, placeID: placeID, color: .black, saved: false)
+        tempMarker = makeMarker(position: location, placeID: placeID, color: .black, saved: false)
         setGeneralInformation(placeID, userData: tempMarker?.userData!)
     }
     
@@ -117,6 +117,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                 self.placeInformationView?.saved = savedFlag["saved"]!
             }
         }
+        
         placesClient.lookUpPlaceID(placeID, callback: { (place, error) -> Void in
             if let error = error {
                 print("lookup place id query error: \(error.localizedDescription)")
@@ -145,9 +146,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
      - color: Marker Color
      
      */
-    func makeMarker(markerID: String, position: CLLocationCoordinate2D, placeID: String, color: UIColor, saved: Bool) -> GMSMarker {
+    func makeMarker(position: CLLocationCoordinate2D, placeID: String, color: UIColor, saved: Bool) -> GMSMarker {
         let marker = GMSMarker(position: position)
-        marker.title = markerID
         marker.snippet = placeID
         marker.icon = GMSMarker.markerImage(with: color)
         marker.map = mapView
@@ -175,9 +175,9 @@ extension MapViewController {
         // TODO load locations function
         
         // TEST DATA
-        markers.append(makeMarker(markerID: "0", position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), placeID: "ChIJAAAAAAAAAAARembxZUVcNEk", color: .black, saved: true))
-        markers.append(makeMarker(markerID: "1", position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), placeID: "ChIJAAAAAAAAAAARknLi-eNpMH8", color: .black, saved: true))
-        markers.append(makeMarker(markerID: "2", position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), placeID: "ChIJAAAAAAAAAAARdxDXMalu6mY", color: .black, saved: true))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7859022974905, longitude: -122.410837411881), placeID: "ChIJAAAAAAAAAAARembxZUVcNEk", color: .black, saved: true))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7906928118546, longitude: -122.405601739883), placeID: "ChIJAAAAAAAAAAARknLi-eNpMH8", color: .black, saved: true))
+        markers.append(makeMarker(position: CLLocationCoordinate2D.init(latitude: 37.7887342497061, longitude: -122.407184243202), placeID: "ChIJAAAAAAAAAAARdxDXMalu6mY", color: .black, saved: true))
         
         makeShowListView()
         makeInformationView()
@@ -313,9 +313,28 @@ extension MapViewController {
     
     func tappedImage(_ sender: UITapGestureRecognizer) {
         print("image tapped")
-        //print(self.placeInformationView?.saved)
         //makeAlert()
-        makeDeleteAlert()
+        
+        if self.placeInformationView?.saved == true {
+            let index = markers.index(where: { (elem) -> Bool in
+                elem.snippet == (placeInformationView?.placeID)!
+            })
+            makeDeleteAlert(index!)
+        } else {
+            makeAddAlert()
+        }
+    }
+    
+    func cellTappedImage(_ sender: UITapGestureRecognizer) {
+        print("image tapped")
+        //makeAlert()
+        
+//        if self.placeInformationView?.saved == true {
+//            let index = markers.index(where: { (elem) -> Bool in
+//                elem.snippet == (placeInformationView?.placeID)!
+//            })
+//            makeDeleteAlert(index!)
+//        }
     }
     
     /**
@@ -363,15 +382,15 @@ extension MapViewController {
     func makeAlert() {
         let alert = UIAlertController(title:"Save to Folder", message: "Select a folder to save your spot", preferredStyle: UIAlertControllerStyle.alert)
         
-        let action1 = UIAlertAction(title: "Cafes", style: UIAlertActionStyle.default, handler: {
-            (action: UIAlertAction!) in
-            //print("アクション１をタップした時の処理")
-        })
-        
-        let action2 = UIAlertAction(title: "restaurants", style: UIAlertActionStyle.default, handler: {
-            (action: UIAlertAction!) in
-            //print("アクション２をタップした時の処理")
-        })
+//        let action1 = UIAlertAction(title: "Cafes", style: UIAlertActionStyle.default, handler: {
+//            (action: UIAlertAction!) in
+//            
+//        })
+//        
+//        let action2 = UIAlertAction(title: "restaurants", style: UIAlertActionStyle.default, handler: {
+//            (action: UIAlertAction!) in
+//            
+//        })
         
         //The last one creates another dialog
         
@@ -413,8 +432,8 @@ extension MapViewController {
         })
         
         
-        alert.addAction(action1)
-        alert.addAction(action2)
+//        alert.addAction(action1)
+//        alert.addAction(action2)
         alert.addAction(action3)
         alert.addAction(cancel)
         
@@ -422,12 +441,38 @@ extension MapViewController {
         
     }
     
-    func makeDeleteAlert() {
+    func makeAddAlert() {
+        let alert = UIAlertController(title:"Save spot", message: "Do you want to add the spot?", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let defaultAction: UIAlertAction = UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler:{
+            (action: UIAlertAction!) -> Void in
+            self.placeInformationView?.setSavedIcon()
+            self.tempMarker?.userData = ["saved": true]
+            self.markers.append(self.tempMarker!)
+            self.tempMarker = nil
+            self.showListView.reloadData()
+        })
+        
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler:{
+            (action: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+        
+        alert.addAction(cancelAction)
+        alert.addAction(defaultAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func makeDeleteAlert(_ deleteIndex: Int) {
         let alert: UIAlertController = UIAlertController(title: "Delete Spot", message: "This action cannot be undone", preferredStyle:  UIAlertControllerStyle.alert)
         
         let defaultAction: UIAlertAction = UIAlertAction(title: "Confirm", style: UIAlertActionStyle.destructive, handler:{
             (action: UIAlertAction!) -> Void in
-            print("OK")
+            self.markers[deleteIndex].map = nil
+            self.markers.remove(at: deleteIndex)
+            self.animateHideView()
+            print(self.markers.count)
+            self.showListView.reloadData()
         })
         
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler:{
@@ -447,7 +492,7 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return markers.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -471,6 +516,10 @@ extension MapViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
+        
+        let tapImageGesture = UITapGestureRecognizer(target: self, action: #selector(cellTappedImage(_:)))
+        cell.imageIcon.addGestureRecognizer(tapImageGesture)
+        
         placesClient.lookUpPlaceID(markers[indexPath.row].snippet!, callback: { (place, error) -> Void in
             if let error = error {
                 print("lookup place id query error: \(error.localizedDescription)")
