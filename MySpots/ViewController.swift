@@ -133,16 +133,18 @@ extension ViewController {
         
         let cell : CustomCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCell", for: indexPath as IndexPath) as! CustomCollectionViewCell
         
-        // Section毎にCellのプロパティを変える.
         switch(indexPath.section){
             case 0:
-                cell.backgroundColor = UIColor.red
+                //cell.backgroundColor = UIColor.red
                 //cell.textLabel?.text = "0"
                 //cell.setSpotFolder()
-            
+                if fbController.mySpots.folders.count > 0 {
+                    cell.setSpotFolder(fbController.mySpots.folders[indexPath.row])
+                }
             case 1:
-                cell.backgroundColor = UIColor.green
+                //cell.backgroundColor = UIColor.green
                 //cell.textLabel?.text = "1"
+                break
             
             default:
                 print("section error")
@@ -154,12 +156,6 @@ extension ViewController {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 230)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
-        return UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20)
-        
     }
     
 }
