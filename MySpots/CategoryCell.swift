@@ -18,7 +18,6 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
                 nameCatLabel.text = name
             }
         }
-        
     }
     
     private let cellid = "myspotCellid"
@@ -111,6 +110,15 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        if let folder = topPageCategory?.folders[indexPath.item] {
+//            let storyboard: UIStoryboard = UIStoryboard(name: "Storyboard2", bundle: nil)
+//            let vc = storyboard.instantiateViewController(withIdentifier: "NextViewController") as! MapViewController
+////            self.show(vc, sender: self)
+//        }
+//        
+//    }
     
 }
 

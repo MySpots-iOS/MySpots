@@ -13,6 +13,8 @@ import GooglePlacePicker
 
 class MapViewController: UIViewController, GMSMapViewDelegate {
     
+    var folder:Folder = Folder()
+    
     fileprivate var locationManager = CLLocationManager()
     fileprivate var mapView: GMSMapView!
     fileprivate var placesClient: GMSPlacesClient!

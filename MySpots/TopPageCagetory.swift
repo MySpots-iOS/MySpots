@@ -34,7 +34,8 @@ class ToppageCategory: NSObject {
         return newFolder
     }
 
-//        self.ref.child("list").childByAutoId().setValue(folder1.folderName)
+
+
 
 }
 

@@ -22,6 +22,23 @@ class FirebaseController {
     func firstInit() {
         mySpots.name = "My Spots"
         
+        
+        // How to make a New folder
+        
+//        //1: generate a unique key to folder
+//        let folderRef = ref.child("ExploreFolders").childByAutoId();
+//        
+//        //2. make a array of folder info
+//        let newFolder = ["category": "BARS", "folderName": "JAZZBAR", "imageName":"livehouse1", "spotsNum":8 , "Spots":[]] as [String : Any]
+//        
+//        //3.put the folder info inside the generated key
+//        folderRef.updateChildValues(newFolder)
+//        
+//        
+        
+//        self.ref.child("ExploreFolders").child()setValue(folder1.folderName)
+
+        
         self.ref.child(firebasePath).observeSingleEvent(of: .value, with: { (snapshot) in
             for folder in snapshot.children {
                 if let snap = folder as? DataSnapshot {
@@ -29,6 +46,7 @@ class FirebaseController {
                     self.mySpots.folders.append(folder)
                 }
             }
+            
             
         NotificationCenter.default.post(name: Notification.Name(rawValue:"FirebaseNotification"), object: nil)
             

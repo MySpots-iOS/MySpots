@@ -12,6 +12,7 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
     
     private let cellid = "cellid"
     private let nc = NotificationCenter.default
+//    private let ncName = NotificationCenter.Name("FirebaseNotification")
     
     var topPageCategories: [ToppageCategory]? = []
     var fbController = FirebaseController()
@@ -31,6 +32,8 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
         view.addSubview(collectionView!)
     }
     
+    
+    
     func initCompleted(notification: Notification?) {
         self.topPageCategories?.append(fbController.mySpots)
         // no longer to hold the observer
@@ -44,6 +47,9 @@ class TopPageViewController: UICollectionViewController, UICollectionViewDelegat
     func refreshCollectionView() {
         self.collectionView?.reloadData()
     }
+    
+    
+ 
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! CategoryCell
