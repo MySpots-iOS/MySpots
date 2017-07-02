@@ -23,15 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         AnalyticsConfiguration.shared().setAnalyticsCollectionEnabled(false)
-
-
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
         
-        let layout = UICollectionViewFlowLayout()
-        let topPageVC = TopPageViewController(collectionViewLayout: layout)
-        
-        window!.rootViewController = UINavigationController(rootViewController: topPageVC)
         
         // Google Maps API Key
         if let APIKEY = KeyManager().getValue(key: "apiKey") as? String {
