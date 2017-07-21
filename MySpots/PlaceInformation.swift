@@ -25,7 +25,8 @@ class PlaceInformation: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        loadXibView()
     }
     
     func loadXibView() {
